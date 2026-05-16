@@ -1238,6 +1238,35 @@
     });
   }
 
+  function renderUnitTable(ut) {
+    var headerHtml = ut.headers.map(function (h) {
+      return '<th style="border:1px solid #cbd5e1;padding:6px 10px;text-align:center;white-space:pre-line;font-size:12px;">' + h + '</th>';
+    }).join('');
+    var rowsHtml = ut.rows.map(function (row) {
+      var isHL = row[0] === ut.highlight_row;
+      var bg   = isHL ? '#fef3c7' : 'transparent';
+      var fw   = isHL ? '700' : 'normal';
+      var cells = row.map(function (cell, i) {
+        return '<td style="border:1px solid #cbd5e1;padding:6px 10px;text-align:' + (i === 0 ? 'left' : 'center') + ';font-weight:' + fw + ';font-size:13px;">' + cell + '</td>';
+      }).join('');
+      return '<tr style="background:' + bg + ';">' + cells + '</tr>';
+    }).join('');
+    return '<details style="margin-top:14px;border-top:1px solid var(--border-subtle);padding-top:12px;">'
+      + '<summary style="cursor:pointer;font-weight:700;color:#0369a1;font-size:14px;padding:4px 0;list-style:none;display:flex;align-items:center;gap:6px;">'
+      + '<span style="font-size:16px;">📊</span> ' + ut.title
+      + '</summary>'
+      + '<div style="margin-top:10px;">'
+      + (ut.subtitle ? '<p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">' + ut.subtitle + '</p>' : '')
+      + (ut.highlight_label ? '<p style="font-size:12px;color:#0369a1;margin-bottom:8px;">🏢 黄色ハイライト = ' + ut.highlight_label + '</p>' : '')
+      + '<div style="overflow-x:auto;">'
+      + '<table style="width:100%;border-collapse:collapse;">'
+      + '<thead><tr style="background:#f1f5f9;">' + headerHtml + '</tr></thead>'
+      + '<tbody>' + rowsHtml + '</tbody>'
+      + '</table></div>'
+      + (ut.note ? '<p style="font-size:11px;color:var(--text-tertiary);margin-top:8px;">' + ut.note + '</p>' : '')
+      + '</div></details>';
+  }
+
   function renderKasanCard(item) {
     var targetHtml = item.target.map(function (t) { return '<li>' + t + '</li>'; }).join('');
     var reqHtml    = item.requirements.map(function (r) { return '<li>' + r + '</li>'; }).join('');
@@ -1256,6 +1285,7 @@
       + (item.target && item.target.length ? '<div><div class="kasan-card__section-label">対象者</div><ul class="kasan-card__list">' + targetHtml + '</ul></div>' : '')
       + (item.requirements && item.requirements.length ? '<div><div class="kasan-card__section-label">算定要件</div><ul class="kasan-card__list">' + reqHtml + '</ul></div>' : '')
       + (item.notes ? '<p class="kasan-card__summary" style="font-size:12px;color:var(--text-tertiary)">📝 ' + item.notes + '</p>' : '')
+      + (item.unit_table ? renderUnitTable(item.unit_table) : '')
       + '<div class="kasan-card__footer">'
       + '<span class="kasan-card__meta">出典: ' + item.source + '　最終更新: ' + item.last_updated + '</span>'
       + (item.source_url ? '<a class="kasan-card__source-link" href="' + item.source_url + '" target="_blank" rel="noopener">原本を確認<svg viewBox="0 0 14 14" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></a>' : '')
