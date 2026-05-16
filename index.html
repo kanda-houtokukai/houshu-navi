@@ -359,17 +359,11 @@
       gap: 16px; margin-bottom: 24px;
     }
     .status-card {
-      background: var(--bg-card);
+      background: #f9fafb;
       border: 1px solid var(--border-subtle);
       border-radius: 12px; padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       display: flex; flex-direction: column; gap: 8px;
-      transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s;
-    }
-    .status-card:hover {
-      box-shadow: 0 12px 40px rgba(99,91,255,0.15);
-      transform: translateY(-3px);
-      border-color: var(--accent);
+      cursor: default;
     }
     .status-card__top { display: flex; align-items: center; gap: 8px; }
     .status-card__icon { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; }
@@ -381,7 +375,7 @@
     .status-card__value-row { display: flex; align-items: baseline; gap: 6px; }
     .status-card__value {
       font-family: 'Inter', sans-serif;
-      font-size: 44px; font-weight: 700;
+      font-size: 32px; font-weight: 700;
       letter-spacing: -0.03em; line-height: 1;
       color: var(--text-primary);
     }
@@ -747,6 +741,13 @@
         z-index: 100; width: 240px;
         box-shadow: 4px 0 24px rgba(0,0,0,0.1);
       }
+      .sidebar.sidebar--open .nav-item {
+        justify-content: flex-start; padding: 10px 16px;
+      }
+      .sidebar.sidebar--open .nav-item__label { display: inline; }
+      .sidebar.sidebar--open .nav-item__icon { width: 20px; height: 20px; }
+      .sidebar.sidebar--open .nav-item__badge,
+      .sidebar.sidebar--open .sidebar__footer { display: block; }
       .topbar { padding: 0 20px; height: 60px; }
       .topbar__title { font-size: 18px; }
       .topbar__hamburger { display: block; }
@@ -820,7 +821,7 @@
 
   <!-- Top bar -->
   <header class="topbar">
-    <div class="topbar__title" id="page-title">ダッシュボード</div>
+    <div class="topbar__title" id="page-title">ホーム</div>
     <button class="topbar__hamburger" id="hamburger" aria-label="メニュー">
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="6" x2="19" y2="6"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="16" x2="19" y2="16"/></svg>
     </button>
@@ -1194,7 +1195,7 @@
   var pageTitle = document.getElementById('page-title');
 
   var pageTitles = {
-    'home':                    'ダッシュボード',
+    'home':                    'ホーム',
     'kasan':                   '加算を探す',
     'kasan-seikatsu-kaigo':    '生活介護',
     'kasan-shisetsu-nyusho':   '障害者支援施設（入所）',
