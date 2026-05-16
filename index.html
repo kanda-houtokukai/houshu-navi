@@ -191,24 +191,6 @@
       font-size: 22px; font-weight: 700;
       color: var(--text-primary); letter-spacing: -0.01em;
     }
-    .topbar__search {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px; padding: 10px 16px; width: 360px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .topbar__search:focus-within {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(99,91,255,0.1);
-    }
-    .topbar__search-icon { width: 16px; height: 16px; color: var(--text-tertiary); flex-shrink: 0; }
-    .topbar__search input {
-      flex: 1; border: none; background: transparent;
-      font-family: 'Noto Sans JP', sans-serif; font-size: 14px;
-      color: var(--text-primary); outline: none;
-    }
-    .topbar__search input::placeholder { color: var(--text-tertiary); }
     .topbar__hamburger {
       display: none; background: none; border: none;
       cursor: pointer; padding: 4px; color: var(--text-primary);
@@ -617,6 +599,64 @@
     .qa-search-card__link { color: #635BFF; font-size: 13px; text-decoration: none; font-weight: 600; }
     .qa-search-card__link:hover { text-decoration: underline; }
 
+    /* ════════════════════
+       算定診断
+    ════════════════════ */
+    .diagnosis-steps { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; padding: 0 4px; }
+    .diagnosis-step { flex: 1; text-align: center; position: relative; font-size: 13px; color: var(--text-tertiary); }
+    .diagnosis-step + .diagnosis-step::before {
+      content: ''; position: absolute; top: 15px; left: -50%; right: 50%;
+      height: 2px; background: var(--border-subtle); z-index: 0;
+    }
+    .diagnosis-step.active { color: var(--accent-primary, #635BFF); font-weight: 700; }
+    .diagnosis-step.done { color: var(--accent-primary, #635BFF); }
+    .diagnosis-step__num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--bg-subtle, #F6F8FA); color: var(--text-tertiary);
+      font-weight: 700; margin-bottom: 6px; border: 2px solid var(--border-subtle);
+      position: relative; z-index: 1;
+    }
+    .diagnosis-step.active .diagnosis-step__num { background: #635BFF; color: white; border-color: #635BFF; }
+    .diagnosis-step.done .diagnosis-step__num { background: #635BFF; color: white; border-color: #635BFF; }
+    .diagnosis-question { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; }
+    .diagnosis-option {
+      display: block; width: 100%; text-align: left;
+      padding: 16px 20px; background: white;
+      border: 2px solid var(--border-subtle); border-radius: 12px;
+      margin-bottom: 12px; cursor: pointer; transition: all 0.2s;
+      font-size: 15px; color: var(--text-primary); font-family: 'Noto Sans JP', sans-serif;
+    }
+    .diagnosis-option:hover { border-color: #635BFF; background: rgba(99,91,255,0.04); }
+    .diagnosis-option.selected { border-color: #635BFF; background: rgba(99,91,255,0.06); color: #635BFF; font-weight: 700; }
+    .diagnosis-next-btn {
+      background: #635BFF; color: white; padding: 12px 32px;
+      border: none; border-radius: 12px; font-size: 15px; font-weight: 700;
+      cursor: pointer; margin-top: 20px; display: inline-block;
+      font-family: 'Noto Sans JP', sans-serif; transition: opacity 0.2s;
+    }
+    .diagnosis-next-btn:hover { opacity: 0.88; }
+    .diagnosis-next-btn:disabled { background: var(--text-tertiary); cursor: not-allowed; opacity: 1; }
+    .result-section { margin-bottom: 32px; }
+    .result-section__title { font-size: 17px; font-weight: 700; padding-bottom: 10px; border-bottom: 2px solid; margin-bottom: 16px; }
+    .result-section__title--high { color: #10B981; border-color: #10B981; }
+    .result-section__title--medium { color: #F59E0B; border-color: #F59E0B; }
+    .result-section__title--risk { color: #DC2626; border-color: #DC2626; }
+    .diagnosis-card { margin-bottom: 16px; }
+    .diagnosis-card__match {
+      background: rgba(99,91,255,0.06); color: #635BFF;
+      padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      margin-bottom: 6px; border-left: 3px solid #635BFF;
+    }
+    .diagnosis-note { background: var(--bg-subtle, #F6F8FA); padding: 20px; border-radius: 12px; margin-top: 28px; font-size: 14px; color: var(--text-secondary); }
+    .diagnosis-reset-btn {
+      background: white; color: #635BFF; padding: 10px 24px;
+      border: 1.5px solid #635BFF; border-radius: 12px; cursor: pointer;
+      margin-top: 12px; font-weight: 700; font-size: 14px;
+      font-family: 'Noto Sans JP', sans-serif; transition: background 0.2s;
+    }
+    .diagnosis-reset-btn:hover { background: rgba(99,91,255,0.06); }
+
     .plan-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .plan-list li {
       display: flex; align-items: flex-start; gap: 12px;
@@ -692,7 +732,6 @@
       .nav-item__icon { width: 22px; height: 22px; }
       .nav-item.nav-item--active::before { display: none; }
       .topbar { padding: 0 24px; }
-      .topbar__search { width: 240px; }
       .content { padding: 16px; }
       .status-grid { grid-template-columns: 1fr; gap: 12px; }
       .hero__heading { font-size: 26px; white-space: normal; }
@@ -709,7 +748,6 @@
       }
       .topbar { padding: 0 20px; height: 60px; }
       .topbar__title { font-size: 18px; }
-      .topbar__search { display: none; }
       .topbar__hamburger { display: block; }
       .hero { height: 280px; }
       .hero__heading { font-size: 30px; }
@@ -764,10 +802,9 @@
       <span class="nav-item__label">Q&amp;A集</span>
     </button>
 
-    <button class="nav-item nav-item--disabled" data-page="diagnosis">
+    <button class="nav-item" data-page="diagnosis">
       <svg class="nav-item__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="11" height="15" rx="1.5"/><polyline points="5.5,7 7,8.5 9.5,5.5"/><line x1="10.5" y1="7" x2="13" y2="7"/><polyline points="5.5,11 7,12.5 9.5,9.5"/><line x1="10.5" y1="11" x2="13" y2="11"/><circle cx="16" cy="16" r="3" fill="white" stroke="currentColor"/><text x="16" y="17.5" font-size="4" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">?</text></svg>
       <span class="nav-item__label">算定診断</span>
-      <span class="nav-item__badge">準備中</span>
     </button>
   </nav>
 
@@ -783,10 +820,6 @@
   <!-- Top bar -->
   <header class="topbar">
     <div class="topbar__title" id="page-title">ダッシュボード</div>
-    <label class="topbar__search">
-      <svg class="topbar__search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg>
-      <input type="text" placeholder="加算・用語で検索..." aria-label="検索">
-    </label>
     <button class="topbar__hamburger" id="hamburger" aria-label="メニュー">
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="6" x2="19" y2="6"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="16" x2="19" y2="16"/></svg>
     </button>
@@ -884,14 +917,14 @@
             <div class="feature-card__arrow">→</div>
           </button>
 
-          <div class="feature-card feature-card--disabled">
-            <span class="feature-card__badge">準備中</span>
+          <button class="feature-card" data-goto="diagnosis">
             <div class="feature-card__icon-bg">
               <svg class="feature-card__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="19" height="24" rx="1.5"/><polyline points="8,10 10.5,13 15,8.5"/><line x1="16.5" y1="11" x2="21" y2="11"/><polyline points="8,17 10.5,20 15,15.5"/><line x1="16.5" y1="18" x2="21" y2="18"/><circle cx="26" cy="26" r="5" fill="white" stroke="currentColor"/><text x="26" y="28.5" font-size="7.5" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">?</text></svg>
             </div>
             <div class="feature-card__title">うちは算定できる?</div>
             <div class="feature-card__desc">質問に答えると算定可否を判定</div>
-          </div>
+            <div class="feature-card__arrow">→</div>
+          </button>
 
         </div>
       </section>
@@ -1084,6 +1117,46 @@
     </section>
 
     <!-- ══════════════════
+         PAGE: 算定診断
+    ══════════════════ -->
+    <section class="page-section" id="page-diagnosis">
+      <nav class="breadcrumb">
+        <button class="breadcrumb__link" data-goto="home">ホーム</button>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">算定診断</span>
+      </nav>
+      <div class="page-header">
+        <div class="page-header__title-row">
+          <h1 class="page-header__title">算定診断</h1>
+        </div>
+        <p class="page-header__sub">3つのステップで、あなたの事業所が算定できる加算を診断します</p>
+      </div>
+
+      <!-- 進捗インジケーター -->
+      <div class="diagnosis-steps" id="diagnosis-steps">
+        <div class="diagnosis-step active" id="dstep-1">
+          <div class="diagnosis-step__num">1</div>
+          <div>サービス選択</div>
+        </div>
+        <div class="diagnosis-step" id="dstep-2">
+          <div class="diagnosis-step__num">2</div>
+          <div>利用者特性</div>
+        </div>
+        <div class="diagnosis-step" id="dstep-3">
+          <div class="diagnosis-step__num">3</div>
+          <div>体制・職員</div>
+        </div>
+        <div class="diagnosis-step" id="dstep-result">
+          <div class="diagnosis-step__num">✓</div>
+          <div>結果</div>
+        </div>
+      </div>
+
+      <!-- ステップ表示エリア -->
+      <div id="step-content"></div>
+    </section>
+
+    <!-- ══════════════════
          PAGE: KASAN - 障害者支援施設(入所)
     ══════════════════ -->
     <section class="page-section" id="page-kasan-shisetsu-nyusho">
@@ -1127,7 +1200,8 @@
     'kasan-jihatsu-houday':    '児童発達支援・放課後等デイサービス',
     'kasan-shurou-keizoku-b':  '就労継続支援B型',
     'search':                  'キーワード検索',
-    'qa':                      'Q&A集'
+    'qa':                      'Q&A集',
+    'diagnosis':               '算定診断'
   };
 
   var kasanData = null;
@@ -1229,6 +1303,7 @@
       renderKasanList(m.key, m.listId, m.badgeId);
     }
     if (pageId === 'search') initSearchPage();
+    if (pageId === 'diagnosis') showDiagnosisStep(1);
     window.scrollTo(0, 0);
     if (window.innerWidth <= 767) sidebar.classList.remove('sidebar--open');
   }
@@ -1385,10 +1460,234 @@
     });
   }
 
+  /* ═══════════════════════════════
+     算定診断ロジック
+  ═══════════════════════════════ */
+  var diagnose = { service: null, characteristics: [], systems: [] };
+
+  var step2Options = [
+    { id: 'jusho',       label: '重度の方が多い（区分5以上が一定割合）',         services: ['shisetsu_nyusho','seikatsu_kaigo','jihatsu_houday','shurou_keizoku_b'] },
+    { id: 'iryokea',     label: '医療的ケアが必要な方がいる',                    services: ['shisetsu_nyusho','seikatsu_kaigo','jihatsu_houday'] },
+    { id: 'kyoudo',      label: '強度行動障害の方がいる',                         services: ['shisetsu_nyusho','seikatsu_kaigo','jihatsu_houday','shurou_keizoku_b'] },
+    { id: '18sai',       label: '18歳到達後も継続支援している（入所のみ）',       services: ['shisetsu_nyusho'] },
+    { id: 'chiikiriko',  label: '退所して地域移行を支援している（入所のみ）',     services: ['shisetsu_nyusho'] },
+    { id: 'jushoushin',  label: '重症心身障害児がいる（児発放デイのみ）',         services: ['jihatsu_houday'] },
+    { id: 'youiku',      label: '養育困難な家庭がある（児発放デイのみ）',         services: ['jihatsu_houday'] },
+    { id: 'ikousenshoku',label: '一般就労への移行実績がある（就労B型のみ）',      services: ['shurou_keizoku_b'] }
+  ];
+
+  var step3Options = [
+    { id: 'kango',       label: '看護職員を配置している' },
+    { id: 'senmon',      label: '専門職（PT/OT/ST/心理職）を配置している' },
+    { id: 'kyoudoshien', label: '強度行動障害支援者養成研修修了者を配置している' },
+    { id: 'shokuji',     label: '食事を提供している' },
+    { id: 'sogei',       label: '送迎を実施している' },
+    { id: 'bcp',         label: '業務継続計画（BCP）を策定済み' },
+    { id: 'gyakutai',    label: '虐待防止措置を実施済み' },
+    { id: 'koksoku',     label: '身体拘束適正化措置を実施済み' },
+    { id: 'johokouhyou', label: '情報公表を実施済み' }
+  ];
+
+  function updateDiagnosisStepIndicator(currentStep) {
+    var stepIds = ['dstep-1', 'dstep-2', 'dstep-3', 'dstep-result'];
+    var stepNums = [1, 2, 3, 4];
+    stepIds.forEach(function (id, i) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('active', 'done');
+      if (stepNums[i] < currentStep) el.classList.add('done');
+      else if (stepNums[i] === currentStep) el.classList.add('active');
+    });
+  }
+
+  function showDiagnosisStep(step) {
+    var content = document.getElementById('step-content');
+    if (!content) return;
+    updateDiagnosisStepIndicator(step);
+
+    if (step === 1) {
+      var services = [
+        { key: 'shisetsu_nyusho',  label: '障害者支援施設（入所）' },
+        { key: 'seikatsu_kaigo',   label: '生活介護' },
+        { key: 'jihatsu_houday',   label: '児童発達支援・放課後等デイサービス' },
+        { key: 'shurou_keizoku_b', label: '就労継続支援B型' }
+      ];
+      var html = '<p class="diagnosis-question">あなたの事業所のサービス種別は?</p>';
+      services.forEach(function (s) {
+        var sel = diagnose.service === s.key ? ' selected' : '';
+        html += '<button class="diagnosis-option' + sel + '" data-service="' + s.key + '">' + s.label + '</button>';
+      });
+      html += '<button class="diagnosis-next-btn" id="diag-next-1" ' + (diagnose.service ? '' : 'disabled') + '>次へ →</button>';
+      content.innerHTML = html;
+
+      content.querySelectorAll('.diagnosis-option').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          content.querySelectorAll('.diagnosis-option').forEach(function (b) { b.classList.remove('selected'); });
+          btn.classList.add('selected');
+          diagnose.service = btn.dataset.service;
+          var nextBtn = document.getElementById('diag-next-1');
+          if (nextBtn) nextBtn.removeAttribute('disabled');
+        });
+      });
+      var next1 = document.getElementById('diag-next-1');
+      if (next1) next1.addEventListener('click', function () { if (diagnose.service) showDiagnosisStep(2); });
+
+    } else if (step === 2) {
+      var filtered = step2Options.filter(function (o) { return o.services.indexOf(diagnose.service) !== -1; });
+      var html = '<p class="diagnosis-question">利用者の特徴は?（複数選択可、当てはまるものすべて）</p>';
+      filtered.forEach(function (o) {
+        var sel = diagnose.characteristics.indexOf(o.id) !== -1 ? ' selected' : '';
+        html += '<button class="diagnosis-option' + sel + '" data-char="' + o.id + '">' + o.label + '</button>';
+      });
+      html += '<button class="diagnosis-next-btn" id="diag-next-2">次へ →</button>';
+      content.innerHTML = html;
+
+      content.querySelectorAll('.diagnosis-option').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btn.classList.toggle('selected');
+          var id = btn.dataset.char;
+          var idx = diagnose.characteristics.indexOf(id);
+          if (idx === -1) diagnose.characteristics.push(id);
+          else diagnose.characteristics.splice(idx, 1);
+        });
+      });
+      var next2 = document.getElementById('diag-next-2');
+      if (next2) next2.addEventListener('click', function () { showDiagnosisStep(3); });
+
+    } else if (step === 3) {
+      var html = '<p class="diagnosis-question">事業所の体制は?（複数選択可）</p>';
+      step3Options.forEach(function (o) {
+        var sel = diagnose.systems.indexOf(o.id) !== -1 ? ' selected' : '';
+        html += '<button class="diagnosis-option' + sel + '" data-sys="' + o.id + '">' + o.label + '</button>';
+      });
+      html += '<button class="diagnosis-next-btn" id="diag-next-3">診断結果を見る</button>';
+      content.innerHTML = html;
+
+      content.querySelectorAll('.diagnosis-option').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btn.classList.toggle('selected');
+          var id = btn.dataset.sys;
+          var idx = diagnose.systems.indexOf(id);
+          if (idx === -1) diagnose.systems.push(id);
+          else diagnose.systems.splice(idx, 1);
+        });
+      });
+      var next3 = document.getElementById('diag-next-3');
+      if (next3) next3.addEventListener('click', performDiagnosis);
+
+    } else if (step === 4) {
+      updateDiagnosisStepIndicator(4);
+    }
+  }
+
+  function performDiagnosis() {
+    if (!kasanData || !kasanData.kasan_list) return;
+    var candidates = kasanData.kasan_list.filter(function (item) {
+      return Array.isArray(item.service) ? item.service.indexOf(diagnose.service) !== -1 : item.service === diagnose.service;
+    });
+
+    var results = { high: [], medium: [], risk: [] };
+
+    candidates.forEach(function (kasan) {
+      var text = ((kasan.name || '') + (kasan.summary || '') + (kasan.requirements || []).join('') + (kasan.notes || '')).toLowerCase();
+      var matches = [];
+
+      diagnose.characteristics.forEach(function (char) {
+        if (char === 'jusho'        && (text.includes('重度') || text.includes('区分5') || text.includes('区分6'))) matches.push('重度の利用者対応');
+        if (char === 'iryokea'      && (text.includes('医療') || text.includes('看護')))                             matches.push('医療的ケア対応');
+        if (char === 'kyoudo'       && text.includes('強度行動障害'))                                               matches.push('強度行動障害対応');
+        if (char === 'chiikiriko'   && text.includes('地域移行'))                                                   matches.push('地域移行支援');
+        if (char === 'jushoushin'   && text.includes('重症心身障害'))                                               matches.push('重症心身障害対応');
+        if (char === 'youiku'       && text.includes('家庭'))                                                        matches.push('家庭支援');
+        if (char === 'ikousenshoku' && text.includes('就労'))                                                        matches.push('一般就労移行');
+      });
+
+      diagnose.systems.forEach(function (sys) {
+        if (sys === 'kango'       && text.includes('看護'))                                                              matches.push('看護職員配置');
+        if (sys === 'senmon'      && (text.includes('専門職') || text.includes('理学療法') || text.includes('作業療法') || text.includes('言語聴覚'))) matches.push('専門職配置');
+        if (sys === 'kyoudoshien' && text.includes('強度行動障害支援者'))                                               matches.push('強行研修修了者配置');
+        if (sys === 'shokuji'     && text.includes('食事'))                                                             matches.push('食事提供');
+        if (sys === 'sogei'       && text.includes('送迎'))                                                             matches.push('送迎実施');
+      });
+
+      if (kasan.category === '減算') {
+        var missingMap = { bcp: 'bcp', gyakutai: 'gyakutai', koksoku: 'koksoku', johokouhyou: 'johokouhyou' };
+        var kasanId = (kasan.id || '').toLowerCase();
+        var isMissing = false;
+        Object.keys(missingMap).forEach(function (sysId) {
+          if (kasanId.includes(sysId) && diagnose.systems.indexOf(sysId) === -1) isMissing = true;
+        });
+        if (isMissing) results.risk.push(Object.assign({}, kasan, { matches: ['未策定/未実施'] }));
+        return;
+      }
+
+      if (matches.length >= 2) results.high.push(Object.assign({}, kasan, { matches: matches }));
+      else if (matches.length === 1) results.medium.push(Object.assign({}, kasan, { matches: matches }));
+    });
+
+    renderDiagnosisResults(results);
+  }
+
+  function renderDiagnosisResults(results) {
+    var content = document.getElementById('step-content');
+    updateDiagnosisStepIndicator(4);
+    var html = '<div class="diagnosis-results">';
+
+    if (results.high.length > 0) {
+      html += '<div class="result-section">';
+      html += '<h3 class="result-section__title result-section__title--high">★ 算定可能性が高い加算（' + results.high.length + '件）</h3>';
+      results.high.forEach(function (k) {
+        html += '<div class="diagnosis-card">';
+        html += '<div class="diagnosis-card__match">該当理由: ' + k.matches.join('、') + '</div>';
+        html += renderKasanCard(k);
+        html += '</div>';
+      });
+      html += '</div>';
+    } else {
+      html += '<p style="color:var(--text-secondary);font-size:14px;margin-bottom:24px;">選択した条件に強く当てはまる加算は見つかりませんでした。</p>';
+    }
+
+    if (results.medium.length > 0) {
+      html += '<div class="result-section">';
+      html += '<h3 class="result-section__title result-section__title--medium">▲ 要件確認推奨（' + results.medium.length + '件）</h3>';
+      results.medium.forEach(function (k) {
+        html += '<div class="diagnosis-card">';
+        html += '<div class="diagnosis-card__match">条件: ' + k.matches.join('、') + '</div>';
+        html += renderKasanCard(k);
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    if (results.risk.length > 0) {
+      html += '<div class="result-section">';
+      html += '<h3 class="result-section__title result-section__title--risk">⚠ 減算リスク（' + results.risk.length + '件）</h3>';
+      results.risk.forEach(function (k) {
+        html += '<div class="diagnosis-card">' + renderKasanCard(k) + '</div>';
+      });
+      html += '</div>';
+    }
+
+    html += '<div class="diagnosis-note">';
+    html += '<p>※ 最終判断は告示原本・自治体照会で確認してください。本診断はあくまで参考情報です。</p>';
+    html += '<button onclick="resetDiagnosis()" class="diagnosis-reset-btn">もう一度診断する</button>';
+    html += '</div>';
+    html += '</div>';
+    content.innerHTML = html;
+  }
+
+  function resetDiagnosis() {
+    diagnose.service = null;
+    diagnose.characteristics = [];
+    diagnose.systems = [];
+    showDiagnosisStep(1);
+  }
+  window.resetDiagnosis = resetDiagnosis;
+
   navItems.forEach(function (item) {
     item.addEventListener('click', function () {
       var page = item.dataset.page;
-      if (page && page !== 'diagnosis') showPage(page);
+      if (page) showPage(page);
     });
   });
 
