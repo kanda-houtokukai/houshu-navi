@@ -1365,7 +1365,9 @@
         var text = [
           k.name || '', k.summary || '',
           (k.requirements || []).join(' '),
-          k.notes || '', k.service_name || ''
+          (k.target || []).join(' '),
+          k.notes || '', k.service_name || '',
+          (k.keywords || []).join(' ')
         ].join(' ').toLowerCase();
         return keywords.every(function (kw) {
           return text.includes(kw) || serviceMatchesKeyword(k, kw);
