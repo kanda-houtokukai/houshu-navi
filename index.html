@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>報酬改定ナビ | 社会福祉法人 豊徳会</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base:          #FFFFFF;
+      --bg-soft:          #F6F9FC;
+      --bg-card:          #FFFFFF;
+
+      --text-primary:     #0A2540;
+      --text-secondary:   #425466;
+      --text-tertiary:    #8898AA;
+
+      --border-subtle:    #E6EBF1;
+      --border-prominent: #CFD7DF;
+
+      --g1: #6ec3f4;
+      --g2: #3a3aff;
+      --g3: #ff61ab;
+      --g4: #FFD93D;
+      --g5: #FFA552;
+      --g6: #E63946;
+
+      --accent:      #635BFF;
+      --accent-soft: rgba(99, 91, 255, 0.08);
+
+      --success: #00D924;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { height: 100%; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    .font-inter { font-family: 'Inter', sans-serif; }
+
+    /* ════════════════════
+       SIDEBAR
+    ════════════════════ */
+    .sidebar {
+      width: 240px;
+      min-height: 100vh;
+      background: var(--bg-base);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 20;
+    }
+
+    .brand-logo {
+      padding: 24px 20px 28px 20px;
+      border-bottom: 1px solid var(--border-subtle, #E6EBF1);
+    }
+    .brand-logo__name {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--text-tertiary, #8898AA);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .brand-logo__divider {
+      width: 32px;
+      height: 2px;
+      background: linear-gradient(90deg, #3a3aff 0%, #ff61ab 50%, #FFD93D 100%);
+      border-radius: 2px;
+      margin: 6px 0 10px 0;
+    }
+    .brand-logo__title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+    .brand-logo__title-jp {
+      color: var(--text-primary, #0A2540);
+    }
+    .brand-logo__title-en {
+      background: linear-gradient(135deg, #3a3aff 0%, #ff61ab 50%, #FFA552 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .sidebar__divider {
+      height: 1px;
+      margin: 0 20px 8px;
+      background: linear-gradient(90deg, var(--border-subtle) 0%, transparent 100%);
+    }
+
+    .sidebar__nav { padding: 8px 0; flex: 1; }
+    .sidebar__nav-label {
+      font-size: 10px; font-weight: 700;
+      color: var(--text-tertiary);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      padding: 10px 20px 6px;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 20px;
+      color: var(--text-secondary);
+      font-size: 14px; font-weight: 500;
+      border-radius: 6px;
+      margin: 2px 8px;
+      transition: background 0.18s, color 0.18s;
+      position: relative; cursor: pointer;
+      background: none; border: none;
+      width: calc(100% - 16px); text-align: left;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .nav-item:hover {
+      background: var(--bg-soft);
+      color: var(--text-primary);
+    }
+    .nav-item.nav-item--active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .nav-item.nav-item--active::before {
+      content: '';
+      position: absolute; left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 3px; height: 60%;
+      background: var(--accent);
+      border-radius: 0 2px 2px 0;
+    }
+    .nav-item--disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+    .nav-item__icon {
+      width: 20px; height: 20px; flex-shrink: 0;
+      color: var(--text-tertiary); transition: color 0.18s;
+    }
+    .nav-item:hover .nav-item__icon { color: var(--text-secondary); }
+    .nav-item.nav-item--active .nav-item__icon { color: var(--accent); }
+    .nav-item__badge {
+      margin-left: auto;
+      font-size: 10px; font-weight: 700;
+      background: rgba(255,170,102,0.15); color: #D97706;
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .sidebar__footer {
+      padding: 16px 20px;
+      font-size: 10px; color: var(--text-tertiary);
+      line-height: 1.8;
+    }
+
+    /* ════════════════════
+       MAIN
+    ════════════════════ */
+    .main { flex: 1; min-width: 0; display: flex; flex-direction: column; background: var(--bg-soft); }
+
+    /* ── Top bar ── */
+    .topbar {
+      height: 72px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      flex-shrink: 0;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .topbar__title {
+      font-size: 22px; font-weight: 700;
+      color: var(--text-primary); letter-spacing: -0.01em;
+    }
+    .topbar__hamburger {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 4px; color: var(--text-primary);
+    }
+
+    /* ════════════════════
+       HERO  ★ここが主役
+    ════════════════════ */
+    .hero {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    /* 斜めグラデーション本体(メッシュ風) */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 220%;
+      top: -60%;
+      left: -25%;
+      background:
+        radial-gradient(at 15% 30%, #6ec3f4 0%, transparent 50%),
+        radial-gradient(at 35% 60%, #3a3aff 0%, transparent 45%),
+        radial-gradient(at 55% 25%, #ff61ab 0%, transparent 50%),
+        radial-gradient(at 70% 70%, #FFD93D 0%, transparent 45%),
+        radial-gradient(at 85% 30%, #FFA552 0%, transparent 50%),
+        radial-gradient(at 95% 80%, #E63946 0%, transparent 45%),
+        linear-gradient(135deg, #6ec3f4 0%, #3a3aff 20%, #ff61ab 40%, #FFD93D 60%, #FFA552 80%, #E63946 100%);
+      transform: skewY(-8deg);
+      filter: saturate(0.85);
+    }
+
+    /* ハイライト+陰りのオーバーレイ */
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 220%;
+      top: -60%;
+      left: -25%;
+      background:
+        radial-gradient(circle at 25% 45%, rgba(255,255,255,0.15) 0%, transparent 25%),
+        radial-gradient(circle at 65% 55%, rgba(255,255,255,0.10) 0%, transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(0,0,0,0.08) 0%, transparent 20%);
+      transform: skewY(-8deg);
+      pointer-events: none;
+    }
+
+    /* ヒーロー内コンテンツ */
+    .hero__content {
+      position: relative;
+      z-index: 1;
+      padding: 0 52px;
+      max-width: 720px;
+    }
+    .hero__heading {
+      font-size: 32px; font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.12);
+      white-space: nowrap;
+    }
+    .hero__sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.7;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    /* 右側装飾の白い円 */
+    .hero__deco {
+      position: absolute;
+      right: 0; top: 0;
+      width: 50%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero__deco::before {
+      content: '';
+      position: absolute;
+      right: 80px; top: 10px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+    .hero__deco::after {
+      content: '';
+      position: absolute;
+      right: 220px; bottom: 10px;
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+    .hero__deco-sm {
+      position: absolute;
+      right: 150px; top: 20px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      z-index: 1;
+    }
+
+    /* ── Content ── */
+    .content { padding: 24px; flex: 1; }
+
+    /* ── Page sections ── */
+    .page-section { display: none; animation: pageIn 0.2s ease; }
+    .page-section.page-active { display: block; }
+    @keyframes pageIn {
+      from { opacity: 0.95; transform: translateY(3px); }
+      to   { opacity: 1;    transform: translateY(0); }
+    }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; margin-bottom: 16px; color: var(--text-tertiary);
+    }
+    .breadcrumb__link {
+      color: var(--text-tertiary); background: none; border: none;
+      font-family: inherit; font-size: inherit; cursor: pointer; padding: 0;
+      transition: color 0.15s;
+    }
+    .breadcrumb__link:hover { color: var(--accent); text-decoration: underline; }
+    .breadcrumb__sep { color: var(--text-tertiary); }
+    .breadcrumb__current { color: var(--text-secondary); }
+
+    /* ── Page header ── */
+    .page-header { margin-bottom: 32px; }
+    .page-header__title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .page-header__title { font-size: 28px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; }
+    .page-header__badge-wip {
+      font-size: 11px; font-weight: 700;
+      background: rgba(255,170,102,0.15); color: #D97706;
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .page-header__sub { font-size: 14px; color: var(--text-secondary); }
+
+    /* ── Section heading ── */
+    .section-heading {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 18px; font-weight: 700;
+      color: var(--text-primary); letter-spacing: -0.01em;
+      margin-bottom: 24px;
+    }
+    .section-heading::before {
+      content: ''; display: block;
+      width: 4px; height: 20px;
+      background: linear-gradient(180deg, #3a3aff, #ff61ab, #FFD93D);
+      border-radius: 2px; flex-shrink: 0;
+    }
+
+    /* ════════════════════
+       STATUS CARDS
+    ════════════════════ */
+    .status-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 16px; margin-bottom: 24px;
+    }
+    .status-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex; flex-direction: column; gap: 8px;
+      transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s;
+    }
+    .status-card:hover {
+      box-shadow: 0 12px 40px rgba(99,91,255,0.15);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .status-card__top { display: flex; align-items: center; gap: 8px; }
+    .status-card__icon { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; }
+    .status-card__label {
+      font-size: 12px; font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .status-card__value-row { display: flex; align-items: baseline; gap: 6px; }
+    .status-card__value {
+      font-family: 'Inter', sans-serif;
+      font-size: 44px; font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1;
+      color: var(--text-primary);
+    }
+    .status-card__value--date {
+      font-size: 22px;
+      color: var(--text-primary);
+    }
+    .status-card__unit { font-size: 17px; font-weight: 500; color: var(--text-secondary); }
+    .status-card__note { font-size: 12px; color: var(--text-tertiary); line-height: 1.5; }
+    .status-card__note--success {
+      color: #00A31C; display: flex; align-items: center; gap: 4px; font-weight: 600;
+    }
+
+    /* ════════════════════
+       FEATURE CARDS
+    ════════════════════ */
+    .feature-section { margin-bottom: 24px; }
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex; flex-direction: column;
+      position: relative; cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s;
+      text-align: left; font-family: 'Noto Sans JP', sans-serif;
+      text-decoration: none; color: inherit;
+    }
+    .feature-card:hover {
+      box-shadow: 0 16px 50px rgba(99,91,255,0.15);
+      transform: translateY(-4px);
+      border-color: rgba(99,91,255,0.4);
+    }
+    .feature-card--disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+
+    .feature-card__icon-bg {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(99,91,255,0.1), rgba(255,217,61,0.1));
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; flex-shrink: 0;
+    }
+    .feature-card__icon { width: 28px; height: 28px; color: var(--accent); }
+    .feature-card__title {
+      font-size: 18px; font-weight: 700;
+      color: var(--text-primary); letter-spacing: -0.01em; margin-bottom: 8px;
+    }
+    .feature-card__desc {
+      font-size: 14px; color: var(--text-secondary);
+      flex: 1; line-height: 1.9;
+    }
+    .feature-card__arrow {
+      align-self: flex-end; margin-top: 14px;
+      font-size: 20px; color: var(--accent); font-weight: 500;
+      transition: transform 0.25s ease;
+    }
+    .feature-card:hover .feature-card__arrow { transform: translateX(4px); }
+    .feature-card__badge {
+      position: absolute; top: 16px; right: 16px;
+      font-size: 11px; font-weight: 700;
+      background: rgba(255,170,102,0.15); color: #D97706;
+      padding: 3px 9px; border-radius: 4px;
+    }
+
+    /* ════════════════════
+       SOURCES
+    ════════════════════ */
+    .sources-section { margin-bottom: 8px; }
+    .sources-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 24px 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+    .sources-list a {
+      color: var(--accent); text-decoration: none; font-size: 14px;
+      display: inline-flex; align-items: center; gap: 5px;
+      transition: opacity 0.15s;
+    }
+    .sources-list a:hover { opacity: 0.7; text-decoration: underline; }
+    .sources-list__ext { width: 14px; height: 14px; flex-shrink: 0; }
+    .sources-note {
+      font-size: 12px; color: var(--text-tertiary); line-height: 1.7;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 12px;
+    }
+
+    /* ════════════════════
+       PAGE: KASAN
+    ════════════════════ */
+    .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .service-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      opacity: 0.6; cursor: not-allowed;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .service-card__icon { width: 40px; height: 40px; color: var(--text-tertiary); }
+    .service-card__title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+    .service-card__desc { font-size: 13px; color: var(--text-secondary); flex: 1; }
+    .service-card__wip {
+      font-size: 10px; font-weight: 700;
+      color: #D97706; background: rgba(255,170,102,0.12);
+      padding: 2px 8px; border-radius: 4px; align-self: flex-start;
+    }
+    .service-card--active {
+      opacity: 1; cursor: pointer;
+      border: 1px solid rgba(99,91,255,0.25);
+      text-align: left; width: 100%;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .service-card--active:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99,91,255,0.12);
+    }
+    .service-card__badge-active {
+      font-size: 10px; font-weight: 700;
+      color: #635BFF; background: rgba(99,91,255,0.1);
+      padding: 2px 8px; border-radius: 4px; align-self: flex-start;
+    }
+    .service-card__badge-coming-soon {
+      font-size: 10px; font-weight: 700;
+      color: #D97706; background: rgba(255,170,102,0.12);
+      padding: 2px 8px; border-radius: 4px; align-self: flex-start;
+    }
+    /* kasan detail page */
+    .kasan-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .kasan-card__header { display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+    .kasan-card__name { font-size: 18px; font-weight: 700; color: var(--text-primary); flex: 1; }
+    .kasan-card__badge {
+      font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 4px;
+      color: #635BFF; background: rgba(99,91,255,0.1); align-self: flex-start; white-space: nowrap;
+    }
+    .kasan-card__badge--genzan {
+      color: #DC2626; background: rgba(220,38,38,0.1);
+    }
+    .kasan-card__summary { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .kasan-card__units-box {
+      background: rgba(99,91,255,0.05); border: 1px solid rgba(99,91,255,0.15);
+      border-radius: 8px; padding: 14px 18px;
+    }
+    .kasan-card__units-label { font-size: 11px; font-weight: 700; color: var(--text-tertiary); letter-spacing: 0.05em; text-transform: uppercase; }
+    .kasan-card__units-val { font-size: 15px; font-weight: 700; color: #635BFF; margin-top: 4px; }
+    .kasan-card__units-note { font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; }
+    .kasan-card__section-label { font-size: 12px; font-weight: 700; color: var(--text-tertiary); letter-spacing: 0.05em; margin-bottom: 8px; }
+    .kasan-card__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+    .kasan-card__list li { font-size: 13px; color: var(--text-secondary); line-height: 1.6; padding-left: 16px; position: relative; }
+    .kasan-card__list li::before { content: '·'; position: absolute; left: 0; color: #635BFF; font-size: 18px; line-height: 1.1; }
+    .kasan-card__footer { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-top: 12px; border-top: 1px solid var(--border-subtle); }
+    .kasan-card__meta { font-size: 11px; color: var(--text-tertiary); flex: 1; }
+    .kasan-card__source-link {
+      font-size: 12px; font-weight: 600; color: #635BFF; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .kasan-card__source-link:hover { text-decoration: underline; }
+    .kasan-card__verification {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+      color: #D97706; background: rgba(255,170,102,0.12);
+    }
+    #kasan-list-shisetsu { display: flex; flex-direction: column; gap: 16px; }
+    .kasan-error { font-size: 14px; color: #E63946; padding: 20px; text-align: center; }
+
+    /* ════════════════════
+       PAGE: SEARCH
+    ════════════════════ */
+    .search-input-wrap { position: relative; max-width: 720px; margin-bottom: 16px; }
+    .search-input-wrap svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); pointer-events: none; }
+    .search-input {
+      width: 100%; padding: 14px 20px 14px 48px;
+      border: 1px solid var(--border-subtle); border-radius: 12px;
+      font-family: 'Noto Sans JP', sans-serif; font-size: 16px;
+      color: var(--text-primary); background: var(--bg-card);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .search-input:focus { outline: none; border-color: var(--accent-primary, #635BFF); box-shadow: 0 0 0 3px rgba(99,91,255,0.1); }
+    .search-input::placeholder { color: var(--text-tertiary); }
+    .search-filter-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+    .search-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .search-filter {
+      padding: 8px 16px; border: none; border-radius: 20px; font-size: 13px;
+      cursor: pointer; background: rgba(99,91,255,0.08); color: #635BFF;
+      font-family: 'Noto Sans JP', sans-serif;
+      transition: background 0.15s;
+    }
+    .search-filter:hover { background: rgba(99,91,255,0.15); }
+    .search-filter.active { background: #635BFF; color: white; }
+    .search-results-header { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; }
+    .search-results { display: flex; flex-direction: column; gap: 16px; }
+    .search-empty { text-align: center; padding: 60px 20px; color: var(--text-tertiary); font-size: 14px; }
+    .search-placeholder { text-align: center; padding: 60px 20px; color: var(--text-tertiary); }
+    .search-placeholder svg { opacity: 0.3; margin-bottom: 12px; }
+    .search-placeholder p { font-size: 14px; margin: 0; }
+    .search-hint { text-align: center; font-size: 13px; color: var(--text-tertiary); margin-bottom: 40px; }
+    .search-section-label { font-size: 13px; font-weight: 700; color: var(--text-tertiary); letter-spacing: 0.05em; text-transform: uppercase; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border-subtle); }
+    .qa-search-card {
+      background: white; border: 1px solid var(--border-subtle, #E6EBF1);
+      border-radius: 12px; padding: 20px; margin-bottom: 12px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .qa-search-card:hover { border-color: var(--accent-primary, #635BFF); box-shadow: 0 4px 16px rgba(99,91,255,0.1); }
+    .qa-search-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .qa-search-card__badge { background: rgba(99,91,255,0.08); color: #635BFF; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+    .qa-search-card__vol { color: var(--text-tertiary); font-size: 12px; }
+    .qa-search-card__question { color: var(--text-primary); font-weight: 700; font-size: 15px; margin-bottom: 8px; line-height: 1.5; }
+    .qa-search-card__answer { color: var(--text-secondary); font-size: 14px; margin-bottom: 12px; line-height: 1.6; }
+    .qa-search-card__link { color: #635BFF; font-size: 13px; text-decoration: none; font-weight: 600; }
+    .qa-search-card__link:hover { text-decoration: underline; }
+
+    /* ════════════════════
+       算定診断
+    ════════════════════ */
+    .diagnosis-steps { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; padding: 0 4px; }
+    .diagnosis-step { flex: 1; text-align: center; position: relative; font-size: 13px; color: var(--text-tertiary); }
+    .diagnosis-step + .diagnosis-step::before {
+      content: ''; position: absolute; top: 15px; left: -50%; right: 50%;
+      height: 2px; background: var(--border-subtle); z-index: 0;
+    }
+    .diagnosis-step.active { color: var(--accent-primary, #635BFF); font-weight: 700; }
+    .diagnosis-step.done { color: var(--accent-primary, #635BFF); }
+    .diagnosis-step__num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--bg-subtle, #F6F8FA); color: var(--text-tertiary);
+      font-weight: 700; margin-bottom: 6px; border: 2px solid var(--border-subtle);
+      position: relative; z-index: 1;
+    }
+    .diagnosis-step.active .diagnosis-step__num { background: #635BFF; color: white; border-color: #635BFF; }
+    .diagnosis-step.done .diagnosis-step__num { background: #635BFF; color: white; border-color: #635BFF; }
+    .diagnosis-question { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; }
+    .diagnosis-option {
+      display: block; width: 100%; text-align: left;
+      padding: 16px 20px; background: white;
+      border: 2px solid var(--border-subtle); border-radius: 12px;
+      margin-bottom: 12px; cursor: pointer; transition: all 0.2s;
+      font-size: 15px; color: var(--text-primary); font-family: 'Noto Sans JP', sans-serif;
+    }
+    .diagnosis-option:hover { border-color: #635BFF; background: rgba(99,91,255,0.04); }
+    .diagnosis-option.selected { border-color: #635BFF; background: rgba(99,91,255,0.06); color: #635BFF; font-weight: 700; }
+    .diagnosis-next-btn {
+      background: #635BFF; color: white; padding: 12px 32px;
+      border: none; border-radius: 12px; font-size: 15px; font-weight: 700;
+      cursor: pointer; margin-top: 20px; display: inline-block;
+      font-family: 'Noto Sans JP', sans-serif; transition: opacity 0.2s;
+    }
+    .diagnosis-next-btn:hover { opacity: 0.88; }
+    .diagnosis-next-btn:disabled { background: var(--text-tertiary); cursor: not-allowed; opacity: 1; }
+    .result-section { margin-bottom: 32px; }
+    .result-section__title { font-size: 17px; font-weight: 700; padding-bottom: 10px; border-bottom: 2px solid; margin-bottom: 16px; }
+    .result-section__title--high { color: #10B981; border-color: #10B981; }
+    .result-section__title--medium { color: #F59E0B; border-color: #F59E0B; }
+    .result-section__title--risk { color: #DC2626; border-color: #DC2626; }
+    .diagnosis-card { margin-bottom: 16px; }
+    .diagnosis-card__match {
+      background: rgba(99,91,255,0.06); color: #635BFF;
+      padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      margin-bottom: 6px; border-left: 3px solid #635BFF;
+    }
+    .diagnosis-note { background: var(--bg-subtle, #F6F8FA); padding: 20px; border-radius: 12px; margin-top: 28px; font-size: 14px; color: var(--text-secondary); }
+    .diagnosis-reset-btn {
+      background: white; color: #635BFF; padding: 10px 24px;
+      border: 1.5px solid #635BFF; border-radius: 12px; cursor: pointer;
+      margin-top: 12px; font-weight: 700; font-size: 14px;
+      font-family: 'Noto Sans JP', sans-serif; transition: background 0.2s;
+    }
+    .diagnosis-reset-btn:hover { background: rgba(99,91,255,0.06); }
+
+    .plan-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .plan-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: 10px; padding: 18px 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      font-size: 14px; color: var(--text-secondary);
+    }
+    .plan-list__check { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ════════════════════
+       PAGE: QA
+    ════════════════════ */
+    .qa-list { display: flex; flex-direction: column; gap: 12px; }
+    .qa-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 22px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex; align-items: center; gap: 18px;
+      text-decoration: none; color: inherit; cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .qa-card:hover {
+      box-shadow: 0 12px 40px rgba(99,91,255,0.15);
+      transform: translateY(-2px);
+    }
+    .qa-card__num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--g1), var(--g3));
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 700; color: #FFFFFF;
+    }
+    .qa-card__body { flex: 1; min-width: 0; }
+    .qa-card__title { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
+    .qa-card__meta { font-size: 12px; color: var(--text-secondary); display: flex; gap: 16px; flex-wrap: wrap; }
+    .qa-card__btn {
+      display: flex; align-items: center; gap: 5px;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 8px;
+      padding: 9px 16px; font-size: 13px; font-weight: 700;
+      font-family: 'Noto Sans JP', sans-serif;
+      cursor: pointer; white-space: nowrap; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 3px 10px rgba(99,91,255,0.3);
+    }
+    .qa-card__btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .qa-card__btn svg { width: 13px; height: 13px; }
+    .qa-info-card {
+      margin-top: 24px; border-radius: 10px; padding: 16px 20px;
+      background: rgba(99,91,255,0.05);
+      border-left: 4px solid var(--accent);
+      font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+    }
+    .qa-info-card a { color: var(--accent); }
+
+    /* ════════════════════
+       RESPONSIVE
+    ════════════════════ */
+    @media (max-width: 1023px) {
+      .sidebar { width: 64px; }
+      .brand-logo,
+      .sidebar__nav-label,
+      .nav-item__badge,
+      .sidebar__footer { display: none; }
+      .sidebar__divider { margin: 0 8px; }
+      .nav-item {
+        justify-content: center; padding: 10px;
+        margin: 2px 4px; width: calc(100% - 8px);
+      }
+      .nav-item__label { display: none; }
+      .nav-item__icon { width: 22px; height: 22px; }
+      .nav-item.nav-item--active::before { display: none; }
+      .topbar { padding: 0 24px; }
+      .content { padding: 16px; }
+      .status-grid { grid-template-columns: 1fr; gap: 12px; }
+      .hero__heading { font-size: 26px; white-space: normal; }
+      .hero__sub { white-space: normal; font-size: 13px; }
+      .hero__content { padding: 0 32px; }
+    }
+    @media (max-width: 767px) {
+      body { flex-direction: column; }
+      .sidebar { display: none; }
+      .sidebar.sidebar--open {
+        display: flex; position: fixed; top: 0; left: 0;
+        z-index: 100; width: 240px;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.1);
+      }
+      .topbar { padding: 0 20px; height: 60px; }
+      .topbar__title { font-size: 18px; }
+      .topbar__hamburger { display: block; }
+      .hero { height: 280px; }
+      .hero__heading { font-size: 30px; }
+      .hero__sub { font-size: 15px; }
+      .hero__content { padding: 0 24px; }
+      .hero__deco { display: none; }
+      .hero__deco-sm { display: none; }
+      .content { padding: 20px; }
+      .status-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .service-grid { grid-template-columns: 1fr; }
+      .qa-card { flex-wrap: wrap; }
+      .qa-card__btn { width: 100%; justify-content: center; }
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .feature-grid, .service-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════ SIDEBAR ════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="brand-logo">
+    <div class="brand-logo__name">HOUTOKUKAI</div>
+    <div class="brand-logo__divider"></div>
+    <div class="brand-logo__title">
+      <span class="brand-logo__title-jp">報酬改定</span><span class="brand-logo__title-en"> NAVI</span>
+    </div>
+  </div>
+
+  <nav class="sidebar__nav">
+    <div class="sidebar__nav-label">メニュー</div>
+
+    <button class="nav-item nav-item--active" data-page="home">
+      <svg class="nav-item__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5"/><path d="M5 8.5V17h4v-4h2v4h4V8.5"/></svg>
+      <span class="nav-item__label">ホーム</span>
+    </button>
+
+    <button class="nav-item" data-page="kasan">
+      <svg class="nav-item__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="10" height="13" rx="1.5"/><line x1="5.5" y1="6" x2="10.5" y2="6"/><line x1="5.5" y1="9" x2="10.5" y2="9"/><line x1="5.5" y1="12" x2="8.5" y2="12"/><line x1="12" y1="13" x2="15" y2="10"/><line x1="12" y1="13" x2="16" y2="13"/><line x1="12" y1="13" x2="15" y2="16"/><circle cx="15.5" cy="9.5" r="1"/><circle cx="17" cy="13" r="1"/><circle cx="15.5" cy="16.5" r="1"/></svg>
+      <span class="nav-item__label">加算を探す</span>
+    </button>
+
+    <button class="nav-item" data-page="search">
+      <svg class="nav-item__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.5"/><line x1="13" y1="13" x2="17.5" y2="17.5"/><line x1="6.5" y1="8" x2="11.5" y2="8"/><line x1="6.5" y1="10.5" x2="10.5" y2="10.5"/></svg>
+      <span class="nav-item__label">キーワード検索</span>
+    </button>
+
+    <button class="nav-item" data-page="qa">
+      <svg class="nav-item__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="7" rx="1.5"/><polyline points="4.5,9 3,12 7,9"/><rect x="9" y="11" width="9" height="7" rx="1.5"/><polyline points="11.5,18 10,21 14,18"/><text x="6.5" y="7.5" font-size="4.5" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">Q</text><text x="13.5" y="16.5" font-size="4.5" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">A</text></svg>
+      <span class="nav-item__label">Q&amp;A集</span>
+    </button>
+
+    <button class="nav-item" data-page="diagnosis">
+      <svg class="nav-item__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="11" height="15" rx="1.5"/><polyline points="5.5,7 7,8.5 9.5,5.5"/><line x1="10.5" y1="7" x2="13" y2="7"/><polyline points="5.5,11 7,12.5 9.5,9.5"/><line x1="10.5" y1="11" x2="13" y2="11"/><circle cx="16" cy="16" r="3" fill="white" stroke="currentColor"/><text x="16" y="17.5" font-size="4" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">?</text></svg>
+      <span class="nav-item__label">算定診断</span>
+    </button>
+  </nav>
+
+  <div class="sidebar__footer">
+    バージョン <span class="font-inter">1.0</span><br>
+    2026年5月16日
+  </div>
+</aside>
+
+<!-- ════════ MAIN ════════ -->
+<div class="main">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar__title" id="page-title">ダッシュボード</div>
+    <button class="topbar__hamburger" id="hamburger" aria-label="メニュー">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="6" x2="19" y2="6"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="16" x2="19" y2="16"/></svg>
+    </button>
+  </header>
+
+  <!-- ★ HERO ★ -->
+  <div class="hero" id="hero-section">
+    <div class="hero__content">
+      <h1 class="hero__heading">報酬改定の答えを<br>すぐ、そこに。</h1>
+      <p class="hero__sub">障害福祉サービス令和6年度報酬改定の内容を、<br>必要な時に、必要な情報へ。</p>
+    </div>
+    <div class="hero__deco"></div>
+    <div class="hero__deco-sm"></div>
+  </div>
+
+  <main class="content">
+
+    <!-- ══════════════════
+         PAGE: HOME
+    ══════════════════ -->
+    <section class="page-section page-active" id="page-home">
+
+      <!-- Status cards -->
+      <div class="status-grid">
+
+        <div class="status-card">
+          <div class="status-card__top">
+            <svg class="status-card__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="10" height="13" rx="1.5"/><rect x="2.5" y="5.5" width="10" height="13" rx="1.5"/><line x1="5" y1="10" x2="10" y2="10"/><line x1="5" y1="13" x2="9" y2="13"/></svg>
+            <span class="status-card__label">収録 Q&amp;A</span>
+          </div>
+          <div class="status-card__value-row">
+            <span class="status-card__value font-inter">8</span>
+            <span class="status-card__unit">本</span>
+          </div>
+          <div class="status-card__note">Vol.1〜Vol.8（令和6年3月〜令和7年3月）</div>
+        </div>
+
+        <div class="status-card">
+          <div class="status-card__top">
+            <svg class="status-card__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="2.5"/><circle cx="13" cy="7" r="2.5"/><circle cx="7" cy="13" r="2.5"/><circle cx="13" cy="13" r="2.5"/></svg>
+            <span class="status-card__label">対象サービス</span>
+          </div>
+          <div class="status-card__value-row">
+            <span class="status-card__value font-inter">4</span>
+            <span class="status-card__unit">種別</span>
+          </div>
+          <div class="status-card__note">生活介護・入所・児発放デイ・就労B型</div>
+        </div>
+
+        <div class="status-card">
+          <div class="status-card__top">
+            <svg class="status-card__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.5"/><line x1="10" y1="5.5" x2="10" y2="4"/><line x1="10" y1="10" x2="13.5" y2="7.5"/><line x1="10" y1="10" x2="10" y2="6"/></svg>
+            <span class="status-card__label">最終更新</span>
+          </div>
+          <div class="status-card__value-row">
+            <span class="status-card__value status-card__value--date font-inter">2026-05-16</span>
+          </div>
+          <div class="status-card__note status-card__note--success">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5,7 5.5,10 10.5,3.5"/></svg>
+            初回データ収集完了
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Feature cards -->
+      <section class="feature-section">
+        <h2 class="section-heading">機能</h2>
+        <div class="feature-grid">
+
+          <button class="feature-card" data-goto="kasan">
+            <div class="feature-card__icon-bg">
+              <svg class="feature-card__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="16" height="20" rx="1.5"/><line x1="6.5" y1="8" x2="16" y2="8"/><line x1="6.5" y1="12" x2="16" y2="12"/><line x1="6.5" y1="16" x2="12" y2="16"/><line x1="18" y1="18" x2="22" y2="13.5"/><line x1="18" y1="18" x2="25" y2="18"/><line x1="18" y1="18" x2="22" y2="24"/><circle cx="23" cy="12.5" r="2.5"/><circle cx="27" cy="18" r="2.5"/><circle cx="23" cy="25" r="2.5"/></svg>
+            </div>
+            <div class="feature-card__title">加算を探す</div>
+            <div class="feature-card__desc">サービス種別から加算一覧を見る</div>
+            <div class="feature-card__arrow">→</div>
+          </button>
+
+          <button class="feature-card" data-goto="search">
+            <div class="feature-card__icon-bg">
+              <svg class="feature-card__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="13.5" r="9"/><line x1="20" y1="20" x2="28" y2="28"/><line x1="9" y1="12.5" x2="18" y2="12.5"/><line x1="9" y1="16" x2="16" y2="16"/></svg>
+            </div>
+            <div class="feature-card__title">キーワードで検索</div>
+            <div class="feature-card__desc">加算名や用語で素早く検索</div>
+            <div class="feature-card__arrow">→</div>
+          </button>
+
+          <button class="feature-card" data-goto="qa">
+            <div class="feature-card__icon-bg">
+              <svg class="feature-card__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="15" height="12" rx="2"/><polyline points="5.5,14 3.5,19 10,14"/><rect x="15" y="18" width="15" height="12" rx="2"/><polyline points="18.5,30 16.5,35 23,30"/><text x="9.5" y="10.5" font-size="6.5" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">Q</text><text x="22.5" y="26.5" font-size="6.5" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">A</text></svg>
+            </div>
+            <div class="feature-card__title">Q&amp;A集を見る</div>
+            <div class="feature-card__desc">厚労省Q&amp;A Vol.1〜8を一覧表示</div>
+            <div class="feature-card__arrow">→</div>
+          </button>
+
+          <button class="feature-card" data-goto="diagnosis">
+            <div class="feature-card__icon-bg">
+              <svg class="feature-card__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="19" height="24" rx="1.5"/><polyline points="8,10 10.5,13 15,8.5"/><line x1="16.5" y1="11" x2="21" y2="11"/><polyline points="8,17 10.5,20 15,15.5"/><line x1="16.5" y1="18" x2="21" y2="18"/><circle cx="26" cy="26" r="5" fill="white" stroke="currentColor"/><text x="26" y="28.5" font-size="7.5" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">?</text></svg>
+            </div>
+            <div class="feature-card__title">うちは算定できる?</div>
+            <div class="feature-card__desc">質問に答えると算定可否を判定</div>
+            <div class="feature-card__arrow">→</div>
+          </button>
+
+        </div>
+      </section>
+
+      <!-- Sources -->
+      <section class="sources-section">
+        <h2 class="section-heading">元資料（出典）</h2>
+        <div class="sources-card">
+          <ul class="sources-list">
+            <li>
+              <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html" target="_blank" rel="noopener">
+                厚生労働省: 令和6年度障害福祉サービス等報酬改定について
+                <svg class="sources-list__ext" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,2 12,2 12,8"/><line x1="12" y1="2" x2="5" y2="9"/><polyline points="4,4 2,4 2,12 10,12 10,10"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.cfa.go.jp/policies/shougaijishien/shisaku/hoshukaitei" target="_blank" rel="noopener">
+                こども家庭庁: 令和6年度障害福祉サービス等報酬改定について
+                <svg class="sources-list__ext" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,2 12,2 12,8"/><line x1="12" y1="2" x2="5" y2="9"/><polyline points="4,4 2,4 2,12 10,12 10,10"/></svg>
+              </a>
+            </li>
+          </ul>
+          <p class="sources-note">※ 本ナビは法人内部利用を目的とした要約・検索ツールです。最終判断は必ず原本（告示・通知・Q&amp;A）をご確認ください。</p>
+        </div>
+      </section>
+
+    </section><!-- /page-home -->
+
+    <!-- ══════════════════
+         PAGE: KASAN
+    ══════════════════ -->
+    <section class="page-section" id="page-kasan">
+      <nav class="breadcrumb">
+        <button class="breadcrumb__link" data-goto="home">ホーム</button>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">加算を探す</span>
+      </nav>
+      <div class="page-header">
+        <div class="page-header__title-row">
+          <h1 class="page-header__title">加算を探す</h1>
+          <span class="page-header__badge-wip">準備中</span>
+        </div>
+        <p class="page-header__sub">サービス種別を選んで、対応する加算の一覧を見ます</p>
+      </div>
+      <h2 class="section-heading">対象サービス</h2>
+      <div class="service-grid">
+        <button class="service-card service-card--active" data-goto="kasan-seikatsu-kaigo"><svg class="service-card__icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="5"/><circle cx="24" cy="13" r="5"/><circle cx="36" cy="13" r="5" opacity=".4"/><path d="M4 32c0-5 3.6-8 8-8s8 3 8 8"/><path d="M16 32c0-5 3.6-8 8-8s8 3 8 8"/></svg><div class="service-card__title">生活介護</div><div class="service-card__desc">日中活動と生活支援</div><div class="service-card__badge-coming-soon" data-service="seikatsu_kaigo">準備中</div></button>
+        <button class="service-card service-card--active" data-goto="kasan-shisetsu-nyusho"><svg class="service-card__icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,20 20,6 36,20"/><rect x="8" y="20" width="24" height="16" rx="1"/><rect x="16" y="26" width="8" height="10" rx="1"/><line x1="12" y1="25" x2="12" y2="30"/><line x1="28" y1="25" x2="28" y2="30"/></svg><div class="service-card__title">障害者支援施設（入所）</div><div class="service-card__desc">24時間体制の支援</div><div class="service-card__badge-active" data-service="shisetsu_nyusho">データあり(<span class="kasan-count">-</span>件)</div></button>
+        <button class="service-card service-card--active" data-goto="kasan-jihatsu-houday"><svg class="service-card__icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="20,4 22.5,12 31,12 24,17.5 26.5,26 20,21 13.5,26 16,17.5 9,12 17.5,12"/><polygon points="33,16 34.2,19.7 38,19.7 35,21.9 36.2,25.7 33,23.5 29.8,25.7 31,21.9 28,19.7 31.8,19.7" opacity=".4"/></svg><div class="service-card__title">児童発達支援・放課後等デイサービス</div><div class="service-card__desc">子どもの発達支援</div><div class="service-card__badge-coming-soon" data-service="jihatsu_houday">準備中</div></button>
+        <button class="service-card service-card--active" data-goto="kasan-shurou-keizoku-b"><svg class="service-card__icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="7"/><circle cx="14" cy="14" r="2.5"/><circle cx="28" cy="26" r="7"/><circle cx="28" cy="26" r="2.5"/><line x1="19" y1="11" x2="23" y2="17"/></svg><div class="service-card__title">就労継続支援B型</div><div class="service-card__desc">作業を通じた就労支援</div><div class="service-card__badge-coming-soon" data-service="shurou_keizoku_b">準備中</div></button>
+      </div>
+    </section>
+
+    <!-- ══════════════════
+         PAGE: KASAN - 生活介護
+    ══════════════════ -->
+    <section class="page-section" id="page-kasan-seikatsu-kaigo">
+      <nav class="breadcrumb">
+        <button class="breadcrumb__link" data-goto="home">ホーム</button>
+        <span class="breadcrumb__sep">›</span>
+        <button class="breadcrumb__link" data-goto="kasan">加算を探す</button>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">生活介護</span>
+      </nav>
+      <div class="page-header">
+        <div class="page-header__title-row">
+          <h1 class="page-header__title">生活介護</h1>
+          <span id="kasan-count-badge-seikatsu" class="page-header__badge-wip" style="color:#635BFF;background:rgba(99,91,255,0.1);">読み込み中…</span>
+        </div>
+        <p class="page-header__sub">日中活動と生活支援に関する加算・減算</p>
+      </div>
+      <h2 class="section-heading">加算一覧</h2>
+      <div id="kasan-list-seikatsu">
+        <p style="color:var(--text-tertiary);font-size:14px;">読み込み中…</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════
+         PAGE: KASAN - 児童発達支援・放課後等デイサービス
+    ══════════════════ -->
+    <section class="page-section" id="page-kasan-jihatsu-houday">
+      <nav class="breadcrumb">
+        <button class="breadcrumb__link" data-goto="home">ホーム</button>
+        <span class="breadcrumb__sep">›</span>
+        <button class="breadcrumb__link" data-goto="kasan">加算を探す</button>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">児童発達支援・放課後等デイ</span>
+      </nav>
+      <div class="page-header">
+        <div class="page-header__title-row">
+          <h1 class="page-header__title">児童発達支援・放課後等デイサービス</h1>
+          <span id="kasan-count-badge-jihatsu" class="page-header__badge-wip" style="color:#635BFF;background:rgba(99,91,255,0.1);">読み込み中…</span>
+        </div>
+        <p class="page-header__sub">子どもの発達支援に関する加算・減算（こども家庭庁所管）</p>
+      </div>
+      <h2 class="section-heading">加算一覧</h2>
+      <div id="kasan-list-jihatsu">
+        <p style="color:var(--text-tertiary);font-size:14px;">読み込み中…</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════
+         PAGE: KASAN - 就労継続支援B型
+    ══════════════════ -->
+    <section class="page-section" id="page-kasan-shurou-keizoku-b">
+      <nav class="breadcrumb">
+        <button class="breadcrumb__link" data-goto="home">ホーム</button>
+        <span class="breadcrumb__sep">›</span>
+        <button class="breadcrumb__link" data-goto="kasan">加算を探す</button>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">就労継続支援B型</span>
+      </nav>
+      <div class="page-header">
+        <div class="page-header__title-row">
+          <h1 class="page-header__title">就労継続支援B型</h1>
+          <span id="kasan-count-badge-shurou" class="page-header__badge-wip" style="color:#635BFF;background:rgba(99,91,255,0.1);">読み込み中…</span>
+        </div>
+        <p class="page-header__sub">作業を通じた就労支援に関する加算・減算（令和6年度改定でスコア制導入）</p>
+      </div>
+      <h2 class="section-heading">加算一覧</h2>
+      <div id="kasan-list-shurou">
+        <p style="color:var(--text-tertiary);font-size:14px;">読み込み中…</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════
+         PAGE: SEARCH
+    ══════════════════ -->
+    <section class="page-section" id="page-search">
+      <nav class="breadcrumb">
+        <button class="breadcrumb__link" data-goto="home">ホーム</button>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">キーワード検索</span>
+      </nav>
+      <div class="page-header">
+        <div class="page-header__title-row">
+          <h1 class="page-header__title">キーワード検索</h1>
+        </div>
+        <p class="page-header__sub" id="search-data-count">加算名や用語で素早く検索できます</p>
+      </div>
+      <div class="search-input-wrap">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.5"/><line x1="13.5" y1="13.5" x2="18" y2="18"/></svg>
+        <input id="search-input" class="search-input" type="text" placeholder="加算名・用語・サービス名で検索...(例: 処遇改善、夜勤、減算)" autocomplete="off">
+      </div>
+      <p class="search-filter-label">サービスで絞り込み:</p>
+      <div class="search-filters">
+        <button class="search-filter active" data-filter="all">すべて</button>
+        <button class="search-filter" data-filter="shisetsu_nyusho">障害者支援施設(入所)</button>
+        <button class="search-filter" data-filter="seikatsu_kaigo">生活介護</button>
+        <button class="search-filter" data-filter="jihatsu_houday">児発放デイ</button>
+        <button class="search-filter" data-filter="shurou_keizoku_b">就労継続支援B型</button>
+        <button class="search-filter" data-filter="common">共通加算のみ</button>
+      </div>
+      <div id="search-results-header" class="search-results-header" style="display:none;"></div>
+      <div id="search-results">
+        <div class="search-placeholder">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="11"/><line x1="27" y1="27" x2="36" y2="36"/></svg>
+          <p>キーワードを入力するか、サービスで絞り込んでください</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════
+         PAGE: QA
+    ══════════════════ -->
+    <section class="page-section" id="page-qa">
+      <nav class="breadcrumb">
+        <button class="breadcrumb__link" data-goto="home">ホーム</button>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Q&amp;A集</span>
+      </nav>
+      <div class="page-header">
+        <div class="page-header__title-row">
+          <h1 class="page-header__title">Q&amp;A集</h1>
+        </div>
+        <p class="page-header__sub">令和6年度障害福祉サービス等報酬改定 Q&amp;A Vol.1〜8</p>
+      </div>
+      <h2 class="section-heading">収録Q&amp;A一覧</h2>
+      <div class="qa-list">
+        <a class="qa-card" href="docs/QA_Vol01_R6-03-29.pdf" target="_blank" rel="noopener"><div class="qa-card__num">01</div><div class="qa-card__body"><div class="qa-card__title">障害福祉サービス等報酬改定 Q&amp;A Vol.1</div><div class="qa-card__meta"><span>発行日: 令和6年3月29日</span><span>サイズ: 820 KB</span></div></div><span class="qa-card__btn">PDFを開く<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></span></a>
+        <a class="qa-card" href="docs/QA_Vol02_R6-04-05.pdf" target="_blank" rel="noopener"><div class="qa-card__num">02</div><div class="qa-card__body"><div class="qa-card__title">障害福祉サービス等報酬改定 Q&amp;A Vol.2</div><div class="qa-card__meta"><span>発行日: 令和6年4月5日</span><span>サイズ: 360 KB</span></div></div><span class="qa-card__btn">PDFを開く<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></span></a>
+        <a class="qa-card" href="docs/QA_Vol03_R6-05-10.pdf" target="_blank" rel="noopener"><div class="qa-card__num">03</div><div class="qa-card__body"><div class="qa-card__title">障害福祉サービス等報酬改定 Q&amp;A Vol.3</div><div class="qa-card__meta"><span>発行日: 令和6年5月10日</span><span>サイズ: 116 KB</span></div></div><span class="qa-card__btn">PDFを開く<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></span></a>
+        <a class="qa-card" href="docs/QA_Vol04_R6-06-04.pdf" target="_blank" rel="noopener"><div class="qa-card__num">04</div><div class="qa-card__body"><div class="qa-card__title">障害福祉サービス等報酬改定 Q&amp;A Vol.4</div><div class="qa-card__meta"><span>発行日: 令和6年6月4日</span><span>サイズ: 191 KB</span></div></div><span class="qa-card__btn">PDFを開く<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></span></a>
+        <a class="qa-card" href="docs/QA_Vol05_R6-08-29.pdf" target="_blank" rel="noopener"><div class="qa-card__num">05</div><div class="qa-card__body"><div class="qa-card__title">障害福祉サービス等報酬改定 Q&amp;A Vol.5</div><div class="qa-card__meta"><span>発行日: 令和6年8月29日</span><span>サイズ: 286 KB</span></div></div><span class="qa-card__btn">PDFを開く<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></span></a>
+        <a class="qa-card" href="docs/QA_Vol06_R6-10-11.pdf" target="_blank" rel="noopener"><div class="qa-card__num">06</div><div class="qa-card__body"><div class="qa-card__title">障害福祉サービス等報酬改定 Q&amp;A Vol.6</div><div class="qa-card__meta"><span>発行日: 令和6年10月11日</span><span>サイズ: 55 KB</span></div></div><span class="qa-card__btn">PDFを開く<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></span></a>
+        <a class="qa-card" href="docs/QA_Vol07_R7-01-24.pdf" target="_blank" rel="noopener"><div class="qa-card__num">07</div><div class="qa-card__body"><div class="qa-card__title">障害福祉サービス等報酬改定 Q&amp;A Vol.7</div><div class="qa-card__meta"><span>発行日: 令和7年1月24日</span><span>サイズ: 390 KB</span></div></div><span class="qa-card__btn">PDFを開く<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></span></a>
+        <a class="qa-card" href="docs/QA_Vol08_R7-03-31.pdf" target="_blank" rel="noopener"><div class="qa-card__num">08</div><div class="qa-card__body"><div class="qa-card__title">障害福祉サービス等報酬改定 Q&amp;A Vol.8</div><div class="qa-card__meta"><span>発行日: 令和7年3月31日</span><span>サイズ: 557 KB</span></div></div><span class="qa-card__btn">PDFを開く<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></span></a>
+      </div>
+      <div class="qa-info-card">💡 PDFは厚生労働省の公式ファイルです。ダウンロード元: <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html" target="_blank" rel="noopener">https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html</a></div>
+    </section>
+
+    <!-- ══════════════════
+         PAGE: 算定診断
+    ══════════════════ -->
+    <section class="page-section" id="page-diagnosis">
+      <nav class="breadcrumb">
+        <button class="breadcrumb__link" data-goto="home">ホーム</button>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">算定診断</span>
+      </nav>
+      <div class="page-header">
+        <div class="page-header__title-row">
+          <h1 class="page-header__title">算定診断</h1>
+        </div>
+        <p class="page-header__sub">3つのステップで、あなたの事業所が算定できる加算を診断します</p>
+      </div>
+
+      <!-- 進捗インジケーター -->
+      <div class="diagnosis-steps" id="diagnosis-steps">
+        <div class="diagnosis-step active" id="dstep-1">
+          <div class="diagnosis-step__num">1</div>
+          <div>サービス選択</div>
+        </div>
+        <div class="diagnosis-step" id="dstep-2">
+          <div class="diagnosis-step__num">2</div>
+          <div>利用者特性</div>
+        </div>
+        <div class="diagnosis-step" id="dstep-3">
+          <div class="diagnosis-step__num">3</div>
+          <div>体制・職員</div>
+        </div>
+        <div class="diagnosis-step" id="dstep-result">
+          <div class="diagnosis-step__num">✓</div>
+          <div>結果</div>
+        </div>
+      </div>
+
+      <!-- ステップ表示エリア -->
+      <div id="step-content"></div>
+    </section>
+
+    <!-- ══════════════════
+         PAGE: KASAN - 障害者支援施設(入所)
+    ══════════════════ -->
+    <section class="page-section" id="page-kasan-shisetsu-nyusho">
+      <nav class="breadcrumb">
+        <button class="breadcrumb__link" data-goto="home">ホーム</button>
+        <span class="breadcrumb__sep">›</span>
+        <button class="breadcrumb__link" data-goto="kasan">加算を探す</button>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">障害者支援施設（入所）</span>
+      </nav>
+      <div class="page-header">
+        <div class="page-header__title-row">
+          <h1 class="page-header__title">障害者支援施設（入所）</h1>
+          <span id="kasan-count-badge" class="page-header__badge-wip" style="color:#635BFF;background:rgba(99,91,255,0.1);">読み込み中…</span>
+        </div>
+        <p class="page-header__sub">令和6年度改定における加算・減算の一覧</p>
+      </div>
+      <h2 class="section-heading">加算一覧</h2>
+      <div id="kasan-list-shisetsu">
+        <p style="color:var(--text-tertiary);font-size:14px;">読み込み中…</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  var pages     = document.querySelectorAll('.page-section');
+  var navItems  = document.querySelectorAll('.nav-item[data-page]');
+  var sidebar   = document.getElementById('sidebar');
+  var hamburger = document.getElementById('hamburger');
+  var hero      = document.getElementById('hero-section');
+  var pageTitle = document.getElementById('page-title');
+
+  var pageTitles = {
+    'home':                    'ダッシュボード',
+    'kasan':                   '加算を探す',
+    'kasan-seikatsu-kaigo':    '生活介護',
+    'kasan-shisetsu-nyusho':   '障害者支援施設（入所）',
+    'kasan-jihatsu-houday':    '児童発達支援・放課後等デイサービス',
+    'kasan-shurou-keizoku-b':  '就労継続支援B型',
+    'search':                  'キーワード検索',
+    'qa':                      'Q&A集',
+    'diagnosis':               '算定診断'
+  };
+
+  var kasanData = null;
+  var qaData = null;
+
+  fetch('data/kasan_data.json')
+    .then(function (r) { return r.json(); })
+    .then(function (json) { kasanData = json; updateServiceCardBadges(); })
+    .catch(function () { kasanData = null; });
+
+  fetch('data/qa_data.json')
+    .then(function (r) { return r.json(); })
+    .then(function (json) { qaData = json; })
+    .catch(function () { qaData = null; });
+
+  function updateServiceCardBadges() {
+    if (!kasanData || !kasanData.kasan_list) return;
+    var services = ['shisetsu_nyusho', 'seikatsu_kaigo', 'jihatsu_houday', 'shurou_keizoku_b'];
+    services.forEach(function (service) {
+      var count = kasanData.kasan_list.filter(function (k) {
+        return Array.isArray(k.service) ? k.service.includes(service) : k.service === service;
+      }).length;
+      var badge = document.querySelector('[data-service="' + service + '"]');
+      if (!badge) return;
+      if (count === 0) {
+        badge.className = 'service-card__badge-coming-soon';
+        badge.textContent = '準備中';
+      } else {
+        badge.className = 'service-card__badge-active';
+        badge.innerHTML = 'データあり(<span class="kasan-count">' + count + '</span>件)';
+      }
+    });
+  }
+
+  function renderKasanCard(item) {
+    var targetHtml = item.target.map(function (t) { return '<li>' + t + '</li>'; }).join('');
+    var reqHtml    = item.requirements.map(function (r) { return '<li>' + r + '</li>'; }).join('');
+    return '<div class="kasan-card">'
+      + '<div class="kasan-card__header">'
+      + '<div class="kasan-card__name">' + item.name + '</div>'
+      + '<span class="kasan-card__badge' + (item.category === '減算' ? ' kasan-card__badge--genzan' : '') + '">' + item.category + '</span>'
+      + (item.verification_status ? '<span class="kasan-card__verification">' + item.verification_status + '</span>' : '')
+      + '</div>'
+      + '<p class="kasan-card__summary">' + item.summary + '</p>'
+      + '<div class="kasan-card__units-box">'
+      + '<div class="kasan-card__units-label">単位数</div>'
+      + '<div class="kasan-card__units-val">' + item.units + '</div>'
+      + (item.units_note ? '<div class="kasan-card__units-note">' + item.units_note + '</div>' : '')
+      + '</div>'
+      + (item.target && item.target.length ? '<div><div class="kasan-card__section-label">対象者</div><ul class="kasan-card__list">' + targetHtml + '</ul></div>' : '')
+      + (item.requirements && item.requirements.length ? '<div><div class="kasan-card__section-label">算定要件</div><ul class="kasan-card__list">' + reqHtml + '</ul></div>' : '')
+      + (item.notes ? '<p class="kasan-card__summary" style="font-size:12px;color:var(--text-tertiary)">📝 ' + item.notes + '</p>' : '')
+      + '<div class="kasan-card__footer">'
+      + '<span class="kasan-card__meta">出典: ' + item.source + '　最終更新: ' + item.last_updated + '</span>'
+      + (item.source_url ? '<a class="kasan-card__source-link" href="' + item.source_url + '" target="_blank" rel="noopener">原本を確認<svg viewBox="0 0 14 14" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></a>' : '')
+      + '</div>'
+      + '</div>';
+  }
+
+  function renderKasanList(serviceKey, listId, badgeId) {
+    var listEl  = document.getElementById(listId  || 'kasan-list-shisetsu');
+    var badgeEl = document.getElementById(badgeId || 'kasan-count-badge');
+    if (!listEl) return;
+    if (!kasanData) {
+      listEl.innerHTML = '<p class="kasan-error">データの読み込みに失敗しました。ページを再読み込みしてください。</p>';
+      if (badgeEl) { badgeEl.textContent = 'エラー'; badgeEl.style.color = '#E63946'; badgeEl.style.background = 'rgba(230,57,70,0.1)'; }
+      return;
+    }
+    var items = kasanData.kasan_list.filter(function (k) {
+      return Array.isArray(k.service) ? k.service.includes(serviceKey) : k.service === serviceKey;
+    });
+    if (badgeEl) badgeEl.textContent = items.length + '件';
+    if (items.length === 0) {
+      listEl.innerHTML = '<p style="color:var(--text-tertiary);font-size:14px;">該当する加算データがありません。</p>';
+      return;
+    }
+    listEl.innerHTML = items.map(renderKasanCard).join('');
+  }
+
+  function showPage(pageId) {
+    pages.forEach(function (p) { p.classList.remove('page-active'); });
+    var target = document.getElementById('page-' + pageId);
+    if (target) target.classList.add('page-active');
+    navItems.forEach(function (item) {
+      item.classList.toggle('nav-item--active', item.dataset.page === pageId);
+    });
+    if (pageTitle && pageTitles[pageId]) {
+      pageTitle.textContent = pageTitles[pageId];
+    }
+    hero.style.display = (pageId === 'home') ? '' : 'none';
+    var kasanPageMap = {
+      'kasan-seikatsu-kaigo':   { key: 'seikatsu_kaigo',  listId: 'kasan-list-seikatsu', badgeId: 'kasan-count-badge-seikatsu' },
+      'kasan-shisetsu-nyusho':  { key: 'shisetsu_nyusho', listId: 'kasan-list-shisetsu', badgeId: 'kasan-count-badge' },
+      'kasan-jihatsu-houday':   { key: 'jihatsu_houday',  listId: 'kasan-list-jihatsu',  badgeId: 'kasan-count-badge-jihatsu' },
+      'kasan-shurou-keizoku-b': { key: 'shurou_keizoku_b', listId: 'kasan-list-shurou', badgeId: 'kasan-count-badge-shurou' }
+    };
+    if (kasanPageMap[pageId]) {
+      var m = kasanPageMap[pageId];
+      renderKasanList(m.key, m.listId, m.badgeId);
+    }
+    if (pageId === 'search') initSearchPage();
+    if (pageId === 'diagnosis') {
+      diagnose.service = null;
+      diagnose.characteristics = [];
+      diagnose.systems = [];
+      showDiagnosisStep(1);
+    }
+    window.scrollTo(0, 0);
+    if (window.innerWidth <= 767) sidebar.classList.remove('sidebar--open');
+  }
+
+  var serviceNameMap = {
+    '生活介護':       'seikatsu_kaigo',
+    '障害者支援施設': 'shisetsu_nyusho',
+    '入所':           'shisetsu_nyusho',
+    '施設入所':       'shisetsu_nyusho',
+    '児童発達支援':   'jihatsu_houday',
+    '放課後等デイ':   'jihatsu_houday',
+    '放デイ':         'jihatsu_houday',
+    '児発':           'jihatsu_houday',
+    '児発放デイ':     'jihatsu_houday',
+    '就労継続支援b型':'shurou_keizoku_b',
+    '就労b型':        'shurou_keizoku_b',
+    '就労b':          'shurou_keizoku_b'
+  };
+
+  function serviceMatchesKeyword(item, kw) {
+    var serviceKey = null;
+    var keys = Object.keys(serviceNameMap);
+    for (var i = 0; i < keys.length; i++) {
+      var name = keys[i];
+      if (kw.includes(name) || name.includes(kw)) {
+        serviceKey = serviceNameMap[name];
+        break;
+      }
+    }
+    if (!serviceKey) return false;
+    return Array.isArray(item.service)
+      ? item.service.includes(serviceKey)
+      : item.service === serviceKey;
+  }
+
+  function performSearch() {
+    var keyword = (document.getElementById('search-input').value || '').trim().toLowerCase();
+    var activeFilterEl = document.querySelector('.search-filter.active');
+    var activeFilter = activeFilterEl ? activeFilterEl.dataset.filter : 'all';
+    if (!kasanData || !kasanData.kasan_list) return;
+
+    // 加算の絞り込み
+    var kasanResults = kasanData.kasan_list;
+    if (activeFilter === 'common') {
+      kasanResults = kasanResults.filter(function (k) { return Array.isArray(k.service); });
+    } else if (activeFilter !== 'all') {
+      kasanResults = kasanResults.filter(function (k) {
+        return Array.isArray(k.service) ? k.service.includes(activeFilter) : k.service === activeFilter;
+      });
+    }
+    if (keyword) {
+      var keywords = keyword.split(/\s+/);
+      kasanResults = kasanResults.filter(function (k) {
+        var text = [
+          k.name || '', k.summary || '',
+          (k.requirements || []).join(' '),
+          k.notes || '', k.service_name || ''
+        ].join(' ').toLowerCase();
+        return keywords.every(function (kw) {
+          return text.includes(kw) || serviceMatchesKeyword(k, kw);
+        });
+      });
+    }
+
+    // Q&A の絞り込み（キーワードのみ、サービスフィルター非対応）
+    var qaResults = [];
+    if (keyword && qaData && qaData.qa_list) {
+      var kwList = keyword.split(/\s+/);
+      qaResults = qaData.qa_list.filter(function (q) {
+        var text = [q.question || '', q.answer || '', q.category || ''].join(' ').toLowerCase();
+        return kwList.every(function (kw) { return text.includes(kw); });
+      });
+    }
+
+    renderSearchResults(kasanResults, qaResults, keyword, activeFilter);
+  }
+
+  function renderQaSearchCard(item) {
+    var answerShort = (item.answer || '').replace(/<[^>]+>/g, '').substring(0, 120);
+    if ((item.answer || '').length > 120) answerShort += '…';
+    return '<div class="qa-search-card">' +
+      '<div class="qa-search-card__header">' +
+        '<span class="qa-search-card__badge">Q&A</span>' +
+        '<span class="qa-search-card__vol">' + (item.vol_title || item.vol || '') + '</span>' +
+      '</div>' +
+      '<div class="qa-search-card__question">問' + (item.question_no || '') + '　' + (item.question || '') + '</div>' +
+      '<div class="qa-search-card__answer">（答）' + answerShort + '</div>' +
+      (item.pdf_url ? '<a class="qa-search-card__link" href="' + item.pdf_url + '" target="_blank" rel="noopener">原文PDFを開く →</a>' : '') +
+    '</div>';
+  }
+
+  function renderSearchResults(kasanResults, qaResults, keyword, filter) {
+    var container = document.getElementById('search-results');
+    var header = document.getElementById('search-results-header');
+    if (!container || !header) return;
+    var hasQuery = keyword || filter !== 'all';
+    if (hasQuery) {
+      header.style.display = '';
+      var parts = [];
+      if (keyword) parts.push('「' + keyword + '」');
+      var filterNames = {
+        'shisetsu_nyusho': '障害者支援施設(入所)',
+        'seikatsu_kaigo': '生活介護',
+        'jihatsu_houday': '児発放デイ',
+        'shurou_keizoku_b': '就労継続支援B型',
+        'common': '共通加算のみ'
+      };
+      if (filter !== 'all') parts.push(filterNames[filter] || filter);
+      var total = kasanResults.length + qaResults.length;
+      var countStr = '加算 ' + kasanResults.length + '件 + Q&A ' + qaResults.length + '件 = 計' + total + '件';
+      header.textContent = parts.join(' + ') + ' → ' + countStr;
+    } else {
+      header.style.display = 'none';
+    }
+    if (!hasQuery) {
+      container.innerHTML = '<div class="search-placeholder"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="11"/><line x1="27" y1="27" x2="36" y2="36"/></svg><p>キーワードを入力するか、サービスで絞り込んでください</p></div>';
+    } else if (kasanResults.length === 0 && qaResults.length === 0) {
+      container.innerHTML = '<div class="search-empty">該当する加算・Q&Aが見つかりませんでした</div>';
+    } else {
+      var html = '';
+      if (kasanResults.length > 0) {
+        html += '<div class="search-section-label">加算・減算（' + kasanResults.length + '件）</div>';
+        html += '<div class="search-results">' + kasanResults.map(renderKasanCard).join('') + '</div>';
+      }
+      if (qaResults.length > 0) {
+        html += '<div class="search-section-label" style="margin-top:24px">Q&A（' + qaResults.length + '件）</div>';
+        html += '<div class="search-results">' + qaResults.map(renderQaSearchCard).join('') + '</div>';
+      }
+      container.innerHTML = html;
+    }
+  }
+
+  function initSearchPage() {
+    var input = document.getElementById('search-input');
+    var countEl = document.getElementById('search-data-count');
+    if (countEl) {
+      var kasanCount = (kasanData && kasanData.kasan_list) ? kasanData.kasan_list.length : 0;
+      var qaCount = (qaData && qaData.qa_list) ? qaData.qa_list.length : 0;
+      countEl.textContent = '加算名・用語・Q&A本文から横断検索できます(加算' + kasanCount + '件 + Q&A' + qaCount + '件)';
+    }
+    if (input && !input._searchBound) {
+      input._searchBound = true;
+      input.addEventListener('input', performSearch);
+    }
+    document.querySelectorAll('.search-filter').forEach(function (btn) {
+      if (!btn._filterBound) {
+        btn._filterBound = true;
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.search-filter').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          performSearch();
+        });
+      }
+    });
+  }
+
+  /* ═══════════════════════════════
+     算定診断ロジック
+  ═══════════════════════════════ */
+  var diagnose = { service: null, characteristics: [], systems: [] };
+
+  var step2Options = [
+    { id: 'jusho',       label: '重度の方が多い（区分5以上が一定割合）',         services: ['shisetsu_nyusho','seikatsu_kaigo','jihatsu_houday','shurou_keizoku_b'] },
+    { id: 'iryokea',     label: '医療的ケアが必要な方がいる',                    services: ['shisetsu_nyusho','seikatsu_kaigo','jihatsu_houday'] },
+    { id: 'kyoudo',      label: '強度行動障害の方がいる',                         services: ['shisetsu_nyusho','seikatsu_kaigo','jihatsu_houday','shurou_keizoku_b'] },
+    { id: '18sai',       label: '18歳到達後も継続支援している（入所のみ）',       services: ['shisetsu_nyusho'] },
+    { id: 'chiikiriko',  label: '退所して地域移行を支援している（入所のみ）',     services: ['shisetsu_nyusho'] },
+    { id: 'jushoushin',  label: '重症心身障害児がいる（児発放デイのみ）',         services: ['jihatsu_houday'] },
+    { id: 'youiku',      label: '養育困難な家庭がある（児発放デイのみ）',         services: ['jihatsu_houday'] },
+    { id: 'ikousenshoku',label: '一般就労への移行実績がある（就労B型のみ）',      services: ['shurou_keizoku_b'] }
+  ];
+
+  var step3Options = [
+    { id: 'kango',       label: '看護職員を配置している' },
+    { id: 'senmon',      label: '専門職（PT/OT/ST/心理職）を配置している' },
+    { id: 'kyoudoshien', label: '強度行動障害支援者養成研修修了者を配置している' },
+    { id: 'shokuji',     label: '食事を提供している' },
+    { id: 'sogei',       label: '送迎を実施している' },
+    { id: 'bcp',         label: '業務継続計画（BCP）を策定済み' },
+    { id: 'gyakutai',    label: '虐待防止措置を実施済み' },
+    { id: 'koksoku',     label: '身体拘束適正化措置を実施済み' },
+    { id: 'johokouhyou', label: '情報公表を実施済み' }
+  ];
+
+  function updateDiagnosisStepIndicator(currentStep) {
+    var stepIds = ['dstep-1', 'dstep-2', 'dstep-3', 'dstep-result'];
+    var stepNums = [1, 2, 3, 4];
+    stepIds.forEach(function (id, i) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('active', 'done');
+      if (stepNums[i] < currentStep) el.classList.add('done');
+      else if (stepNums[i] === currentStep) el.classList.add('active');
+    });
+  }
+
+  function showDiagnosisStep(step) {
+    var content = document.getElementById('step-content');
+    if (!content) return;
+    updateDiagnosisStepIndicator(step);
+
+    if (step === 1) {
+      var services = [
+        { key: 'shisetsu_nyusho',  label: '障害者支援施設（入所）' },
+        { key: 'seikatsu_kaigo',   label: '生活介護' },
+        { key: 'jihatsu_houday',   label: '児童発達支援・放課後等デイサービス' },
+        { key: 'shurou_keizoku_b', label: '就労継続支援B型' }
+      ];
+      var html = '<p class="diagnosis-question">あなたの事業所のサービス種別は?</p>';
+      services.forEach(function (s) {
+        var sel = diagnose.service === s.key ? ' selected' : '';
+        html += '<button class="diagnosis-option' + sel + '" data-service="' + s.key + '">' + s.label + '</button>';
+      });
+      html += '<button class="diagnosis-next-btn" id="diag-next-1" ' + (diagnose.service ? '' : 'disabled') + '>次へ →</button>';
+      content.innerHTML = html;
+
+      content.querySelectorAll('.diagnosis-option').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          content.querySelectorAll('.diagnosis-option').forEach(function (b) { b.classList.remove('selected'); });
+          btn.classList.add('selected');
+          diagnose.service = btn.dataset.service;
+          var nextBtn = document.getElementById('diag-next-1');
+          if (nextBtn) nextBtn.removeAttribute('disabled');
+        });
+      });
+      var next1 = document.getElementById('diag-next-1');
+      if (next1) next1.addEventListener('click', function () { if (diagnose.service) showDiagnosisStep(2); });
+
+    } else if (step === 2) {
+      var filtered = step2Options.filter(function (o) { return o.services.indexOf(diagnose.service) !== -1; });
+      var html = '<p class="diagnosis-question">利用者の特徴は?（複数選択可、当てはまるものすべて）</p>';
+      filtered.forEach(function (o) {
+        var sel = diagnose.characteristics.indexOf(o.id) !== -1 ? ' selected' : '';
+        html += '<button class="diagnosis-option' + sel + '" data-char="' + o.id + '">' + o.label + '</button>';
+      });
+      html += '<button class="diagnosis-next-btn" id="diag-next-2">次へ →</button>';
+      content.innerHTML = html;
+
+      content.querySelectorAll('.diagnosis-option').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btn.classList.toggle('selected');
+          var id = btn.dataset.char;
+          var idx = diagnose.characteristics.indexOf(id);
+          if (idx === -1) diagnose.characteristics.push(id);
+          else diagnose.characteristics.splice(idx, 1);
+        });
+      });
+      var next2 = document.getElementById('diag-next-2');
+      if (next2) next2.addEventListener('click', function () { showDiagnosisStep(3); });
+
+    } else if (step === 3) {
+      var html = '<p class="diagnosis-question">事業所の体制は?（複数選択可）</p>';
+      step3Options.forEach(function (o) {
+        var sel = diagnose.systems.indexOf(o.id) !== -1 ? ' selected' : '';
+        html += '<button class="diagnosis-option' + sel + '" data-sys="' + o.id + '">' + o.label + '</button>';
+      });
+      html += '<button class="diagnosis-next-btn" id="diag-next-3">診断結果を見る</button>';
+      content.innerHTML = html;
+
+      content.querySelectorAll('.diagnosis-option').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btn.classList.toggle('selected');
+          var id = btn.dataset.sys;
+          var idx = diagnose.systems.indexOf(id);
+          if (idx === -1) diagnose.systems.push(id);
+          else diagnose.systems.splice(idx, 1);
+        });
+      });
+      var next3 = document.getElementById('diag-next-3');
+      if (next3) next3.addEventListener('click', performDiagnosis);
+
+    } else if (step === 4) {
+      updateDiagnosisStepIndicator(4);
+    }
+  }
+
+  function performDiagnosis() {
+    if (!kasanData || !kasanData.kasan_list) return;
+    var candidates = kasanData.kasan_list.filter(function (item) {
+      return Array.isArray(item.service) ? item.service.indexOf(diagnose.service) !== -1 : item.service === diagnose.service;
+    });
+
+    var results = { high: [], medium: [], risk: [] };
+
+    candidates.forEach(function (kasan) {
+      var text = ((kasan.name || '') + (kasan.summary || '') + (kasan.requirements || []).join('') + (kasan.notes || '')).toLowerCase();
+      var matches = [];
+
+      diagnose.characteristics.forEach(function (char) {
+        if (char === 'jusho'        && (text.includes('重度') || text.includes('区分5') || text.includes('区分6'))) matches.push('重度の利用者対応');
+        if (char === 'iryokea'      && (text.includes('医療') || text.includes('看護')))                             matches.push('医療的ケア対応');
+        if (char === 'kyoudo'       && text.includes('強度行動障害'))                                               matches.push('強度行動障害対応');
+        if (char === 'chiikiriko'   && text.includes('地域移行'))                                                   matches.push('地域移行支援');
+        if (char === 'jushoushin'   && text.includes('重症心身障害'))                                               matches.push('重症心身障害対応');
+        if (char === 'youiku'       && text.includes('家庭'))                                                        matches.push('家庭支援');
+        if (char === 'ikousenshoku' && text.includes('就労'))                                                        matches.push('一般就労移行');
+      });
+
+      diagnose.systems.forEach(function (sys) {
+        if (sys === 'kango'       && text.includes('看護'))                                                              matches.push('看護職員配置');
+        if (sys === 'senmon'      && (text.includes('専門職') || text.includes('理学療法') || text.includes('作業療法') || text.includes('言語聴覚'))) matches.push('専門職配置');
+        if (sys === 'kyoudoshien' && text.includes('強度行動障害支援者'))                                               matches.push('強行研修修了者配置');
+        if (sys === 'shokuji'     && text.includes('食事'))                                                             matches.push('食事提供');
+        if (sys === 'sogei'       && text.includes('送迎'))                                                             matches.push('送迎実施');
+      });
+
+      if (kasan.category === '減算') {
+        var missingMap = { bcp: 'bcp', gyakutai: 'gyakutai', koksoku: 'koksoku', johokouhyou: 'johokouhyou' };
+        var kasanId = (kasan.id || '').toLowerCase();
+        var isMissing = false;
+        Object.keys(missingMap).forEach(function (sysId) {
+          if (kasanId.includes(sysId) && diagnose.systems.indexOf(sysId) === -1) isMissing = true;
+        });
+        if (isMissing) results.risk.push(Object.assign({}, kasan, { matches: ['未策定/未実施'] }));
+        return;
+      }
+
+      if (matches.length >= 2) results.high.push(Object.assign({}, kasan, { matches: matches }));
+      else if (matches.length === 1) results.medium.push(Object.assign({}, kasan, { matches: matches }));
+    });
+
+    renderDiagnosisResults(results);
+  }
+
+  function renderDiagnosisResults(results) {
+    var content = document.getElementById('step-content');
+    updateDiagnosisStepIndicator(4);
+    var html = '<div class="diagnosis-results">';
+
+    if (results.high.length > 0) {
+      html += '<div class="result-section">';
+      html += '<h3 class="result-section__title result-section__title--high">★ 算定可能性が高い加算（' + results.high.length + '件）</h3>';
+      results.high.forEach(function (k) {
+        html += '<div class="diagnosis-card">';
+        html += '<div class="diagnosis-card__match">該当理由: ' + k.matches.join('、') + '</div>';
+        html += renderKasanCard(k);
+        html += '</div>';
+      });
+      html += '</div>';
+    } else {
+      html += '<p style="color:var(--text-secondary);font-size:14px;margin-bottom:24px;">選択した条件に強く当てはまる加算は見つかりませんでした。</p>';
+    }
+
+    if (results.medium.length > 0) {
+      html += '<div class="result-section">';
+      html += '<h3 class="result-section__title result-section__title--medium">▲ 要件確認推奨（' + results.medium.length + '件）</h3>';
+      results.medium.forEach(function (k) {
+        html += '<div class="diagnosis-card">';
+        html += '<div class="diagnosis-card__match">条件: ' + k.matches.join('、') + '</div>';
+        html += renderKasanCard(k);
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    if (results.risk.length > 0) {
+      html += '<div class="result-section">';
+      html += '<h3 class="result-section__title result-section__title--risk">⚠ 減算リスク（' + results.risk.length + '件）</h3>';
+      results.risk.forEach(function (k) {
+        html += '<div class="diagnosis-card">' + renderKasanCard(k) + '</div>';
+      });
+      html += '</div>';
+    }
+
+    html += '<div class="diagnosis-note">';
+    html += '<p>※ 最終判断は告示原本・自治体照会で確認してください。本診断はあくまで参考情報です。</p>';
+    html += '<button onclick="resetDiagnosis()" class="diagnosis-reset-btn">もう一度診断する</button>';
+    html += '</div>';
+    html += '</div>';
+    content.innerHTML = html;
+  }
+
+  function resetDiagnosis() {
+    diagnose.service = null;
+    diagnose.characteristics = [];
+    diagnose.systems = [];
+    showDiagnosisStep(1);
+  }
+  window.resetDiagnosis = resetDiagnosis;
+
+  navItems.forEach(function (item) {
+    item.addEventListener('click', function () {
+      var page = item.dataset.page;
+      if (page) showPage(page);
+    });
+  });
+
+  document.querySelectorAll('[data-goto]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      showPage(el.dataset.goto);
+    });
+  });
+
+  hamburger.addEventListener('click', function () {
+    sidebar.classList.toggle('sidebar--open');
+  });
+
+  document.addEventListener('click', function (e) {
+    if (
+      window.innerWidth <= 767 &&
+      sidebar.classList.contains('sidebar--open') &&
+      !sidebar.contains(e.target) &&
+      !hamburger.contains(e.target)
+    ) {
+      sidebar.classList.remove('sidebar--open');
+    }
+  });
+})();
+</script>
+</body>
+</html>
