@@ -132,6 +132,46 @@
       "notes": "★令和6年度から減算率が大幅強化(1%→10%)。委員会・指針・研修・記録の4点セット必須。"
     },
     {
+      "id": "kyotsu-虐待防止措置未実施減算",
+      "name": "虐待防止措置未実施減算",
+      "service": [
+        "shisetsu_nyusho",
+        "seikatsu_kaigo",
+        "jihatsu_houday",
+        "shurou_keizoku_b"
+      ],
+      "service_name": "障害者支援施設(入所)",
+      "category": "減算",
+      "summary": "虐待防止のための措置が未実施の場合に減算される",
+      "units": "要確認",
+      "units_note": "所定単位数の1%を減算",
+      "target": [
+        "虐待防止措置が未実施の事業所"
+      ],
+      "requirements": [
+        "虐待防止委員会の開催(年1回以上)",
+        "虐待防止のための指針の整備",
+        "虐待防止研修の実施(年1回以上)",
+        "虐待防止責任者の配置"
+      ],
+      "keywords": [
+        "虐待防止",
+        "減算",
+        "虐待",
+        "委員会",
+        "指針",
+        "研修",
+        "未実施",
+        "権利擁護",
+        "防止措置"
+      ],
+      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
+      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
+      "last_updated": "2026-05-16",
+      "verification_status": "要精査",
+      "notes": ""
+    },
+    {
       "id": "kyotsu-情報公表未報告減算",
       "name": "情報公表未報告減算",
       "service": [
@@ -954,41 +994,6 @@
       "notes": "★入所施設の重要な役割。地域生活への移行を促進する加算。"
     },
     {
-      "id": "shisetsu_nyusho-虐待防止措置未実施減算",
-      "name": "虐待防止措置未実施減算",
-      "service": "shisetsu_nyusho",
-      "service_name": "障害者支援施設(入所)",
-      "category": "減算",
-      "summary": "虐待防止のための措置が未実施の場合に減算される",
-      "units": "要確認",
-      "units_note": "所定単位数の1%を減算",
-      "target": [
-        "虐待防止措置が未実施の事業所"
-      ],
-      "requirements": [
-        "虐待防止委員会の開催(年1回以上)",
-        "虐待防止のための指針の整備",
-        "虐待防止研修の実施(年1回以上)",
-        "虐待防止責任者の配置"
-      ],
-      "keywords": [
-        "虐待防止",
-        "減算",
-        "虐待",
-        "委員会",
-        "指針",
-        "研修",
-        "未実施",
-        "権利擁護",
-        "防止措置"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "shisetsu_nyusho-常勤医師配置加算",
       "name": "常勤医師配置加算",
       "service": "shisetsu_nyusho",
@@ -1622,39 +1627,6 @@
       "notes": ""
     },
     {
-      "id": "seikatsu_kaigo-虐待防止措置未実施減算",
-      "name": "虐待防止措置未実施減算",
-      "service": "seikatsu_kaigo",
-      "service_name": "生活介護",
-      "category": "減算",
-      "summary": "虐待防止のための措置が未実施の場合に減算",
-      "units": "要確認",
-      "units_note": "所定単位数の1%を減算",
-      "target": [
-        "虐待防止措置が未実施の事業所"
-      ],
-      "requirements": [
-        "虐待防止委員会の開催",
-        "虐待防止指針の整備",
-        "虐待防止研修の実施",
-        "虐待防止責任者の配置"
-      ],
-      "keywords": [
-        "虐待防止",
-        "減算",
-        "虐待",
-        "委員会",
-        "指針",
-        "研修",
-        "未実施"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "seikatsu_kaigo-栄養マネジメント加算",
       "name": "栄養マネジメント加算",
       "service": "seikatsu_kaigo",
@@ -2225,35 +2197,6 @@
       "notes": ""
     },
     {
-      "id": "jihatsu_houday-虐待防止措置未実施減算",
-      "name": "虐待防止措置未実施減算",
-      "service": "jihatsu_houday",
-      "service_name": "児童発達支援・放課後等デイサービス",
-      "category": "減算",
-      "summary": "虐待防止措置が未実施の場合の減算",
-      "units": "要確認",
-      "units_note": "所定単位数の1%を減算",
-      "target": [
-        "虐待防止措置が未実施の事業所"
-      ],
-      "requirements": [
-        "虐待防止委員会の開催",
-        "指針の整備",
-        "研修の実施"
-      ],
-      "keywords": [
-        "虐待防止",
-        "減算",
-        "虐待",
-        "委員会"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.cfa.go.jp/policies/shougaijishien/houshu-kaitei/",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "jihatsu_houday-児童発達支援センター機能強化加算",
       "name": "児童発達支援センター機能強化加算",
       "service": "jihatsu_houday",
@@ -2648,34 +2591,6 @@
       "last_updated": "2026-05-16",
       "verification_status": "要精査",
       "notes": "令和6年度に関連する評価項目があり。要確認。"
-    },
-    {
-      "id": "shurou_keizoku_b-虐待防止措置未実施減算",
-      "name": "虐待防止措置未実施減算",
-      "service": "shurou_keizoku_b",
-      "service_name": "就労継続支援B型",
-      "category": "減算",
-      "summary": "虐待防止措置未実施の場合の減算",
-      "units": "要確認",
-      "units_note": "所定単位数の1%を減算",
-      "target": [
-        "虐待防止措置未実施の事業所"
-      ],
-      "requirements": [
-        "委員会開催・指針整備・研修実施",
-        "虐待防止責任者の配置"
-      ],
-      "keywords": [
-        "虐待防止",
-        "減算",
-        "虐待",
-        "委員会"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
     },
     {
       "id": "shurou_keizoku_b-常勤看護職員等配置加算",
