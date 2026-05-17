@@ -1242,7 +1242,8 @@
     var services = ['shisetsu_nyusho', 'seikatsu_kaigo', 'jihatsu_houday', 'shurou_keizoku_b'];
     services.forEach(function (service) {
       var count = kasanData.kasan_list.filter(function (k) {
-        return Array.isArray(k.service) ? k.service.includes(service) : k.service === service;
+        var svc = Array.isArray(k.service) ? k.service : [k.service];
+        return svc.includes(service);
       }).length;
       var badge = document.querySelector('[data-service="' + service + '"]');
       if (!badge) return;
@@ -1295,12 +1296,31 @@
       + '</div></details>';
   }
 
+  var serviceLabels = {
+    'shisetsu_nyusho': '入所',
+    'seikatsu_kaigo':  '生活介護',
+    'jihatsu_houday':  '児発・放デイ',
+    'shurou_keizoku_b':'就労B型'
+  };
+
+  function renderKasanServiceBadge(item) {
+    var isKyotsu = typeof item.id === 'string' && item.id.startsWith('kyotsu-');
+    if (isKyotsu) {
+      return '<span style="background:#e0f2fe;color:#0369a1;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600;margin-left:6px;">共通</span>';
+    }
+    var svc = typeof item.service === 'string' ? item.service : null;
+    if (svc && serviceLabels[svc]) {
+      return '<span style="background:#f3f4f6;color:#374151;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600;margin-left:6px;">' + serviceLabels[svc] + '</span>';
+    }
+    return '';
+  }
+
   function renderKasanCard(item) {
     var targetHtml = item.target.map(function (t) { return '<li>' + t + '</li>'; }).join('');
     var reqHtml    = item.requirements.map(function (r) { return '<li>' + r + '</li>'; }).join('');
     return '<div class="kasan-card">'
       + '<div class="kasan-card__header">'
-      + '<div class="kasan-card__name">' + item.name + '</div>'
+      + '<div class="kasan-card__name">' + item.name + renderKasanServiceBadge(item) + '</div>'
       + '<span class="kasan-card__badge' + (item.category === '減算' ? ' kasan-card__badge--genzan' : '') + '">' + item.category + '</span>'
       + (item.verification_status ? '<span class="kasan-card__verification">' + item.verification_status + '</span>' : '')
       + '</div>'
@@ -1362,7 +1382,8 @@
       return;
     }
     var items = kasanData.kasan_list.filter(function (k) {
-      return Array.isArray(k.service) ? k.service.includes(serviceKey) : k.service === serviceKey;
+      var svc = Array.isArray(k.service) ? k.service : [k.service];
+      return svc.includes(serviceKey);
     });
     if (badgeEl) badgeEl.textContent = items.length + '件';
     if (items.length === 0) {
@@ -1432,9 +1453,8 @@
       }
     }
     if (!serviceKey) return false;
-    return Array.isArray(item.service)
-      ? item.service.includes(serviceKey)
-      : item.service === serviceKey;
+    var svc = Array.isArray(item.service) ? item.service : [item.service];
+    return svc.includes(serviceKey);
   }
 
   function performSearch() {
@@ -1449,7 +1469,8 @@
       kasanResults = kasanResults.filter(function (k) { return Array.isArray(k.service); });
     } else if (activeFilter !== 'all') {
       kasanResults = kasanResults.filter(function (k) {
-        return Array.isArray(k.service) ? k.service.includes(activeFilter) : k.service === activeFilter;
+        var svc = Array.isArray(k.service) ? k.service : [k.service];
+        return svc.includes(activeFilter);
       });
     }
     if (keyword) {
@@ -1690,7 +1711,8 @@
   function performDiagnosis() {
     if (!kasanData || !kasanData.kasan_list) return;
     var candidates = kasanData.kasan_list.filter(function (item) {
-      return Array.isArray(item.service) ? item.service.indexOf(diagnose.service) !== -1 : item.service === diagnose.service;
+      var svc = Array.isArray(item.service) ? item.service : [item.service];
+      return svc.indexOf(diagnose.service) !== -1;
     });
 
     var results = { high: [], medium: [], risk: [] };

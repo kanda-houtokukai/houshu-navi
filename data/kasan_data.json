@@ -616,39 +616,6 @@
       "notes": "医療的ケア対応の中核的加算。"
     },
     {
-      "id": "shisetsu_nyusho-福祉専門職員配置等加算",
-      "name": "福祉専門職員配置等加算",
-      "service": "shisetsu_nyusho",
-      "service_name": "障害者支援施設(入所)",
-      "category": "加算",
-      "summary": "社会福祉士・介護福祉士等の有資格者を一定割合配置することを評価",
-      "units": "要確認",
-      "units_note": "区分(I/II/III)により単位数が異なる",
-      "target": [
-        "社会福祉士・介護福祉士・精神保健福祉士・公認心理師等を配置する事業所"
-      ],
-      "requirements": [
-        "I型: 有資格者が常勤生活支援員の35%以上",
-        "II型: 同25%以上",
-        "III型: 常勤生活支援員75%以上または勤続3年以上30%以上"
-      ],
-      "keywords": [
-        "福祉専門職",
-        "社会福祉士",
-        "介護福祉士",
-        "精神保健福祉士",
-        "公認心理師",
-        "有資格者",
-        "専門職配置",
-        "福祉専門職員"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "shisetsu_nyusho-地域生活移行個別支援特別加算",
       "name": "地域生活移行個別支援特別加算",
       "service": "shisetsu_nyusho",
@@ -744,37 +711,6 @@
         "一時帰宅",
         "帰省",
         "病院入院"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "shisetsu_nyusho-食事提供体制加算",
-      "name": "食事提供体制加算",
-      "service": "shisetsu_nyusho",
-      "service_name": "障害者支援施設(入所)",
-      "category": "加算",
-      "summary": "低所得者向けに食事を提供する体制を評価する加算",
-      "units": "要確認",
-      "units_note": "1日あたりの単位数",
-      "target": [
-        "低所得者(市町村民税非課税世帯等)に食事を提供する事業所"
-      ],
-      "requirements": [
-        "食事の調理・提供体制の整備",
-        "栄養面の配慮",
-        "対象者の所得区分の確認",
-        "食事提供記録の整備"
-      ],
-      "keywords": [
-        "食事提供",
-        "食事",
-        "給食",
-        "食事加算",
-        "低所得"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
@@ -1436,68 +1372,6 @@
       "notes": ""
     },
     {
-      "id": "seikatsu_kaigo-食事提供体制加算",
-      "name": "食事提供体制加算",
-      "service": "seikatsu_kaigo",
-      "service_name": "生活介護",
-      "category": "加算",
-      "summary": "低所得者向けに食事を提供する体制を評価",
-      "units": "要確認",
-      "units_note": "1日あたりの単位数",
-      "target": [
-        "低所得者(市町村民税非課税世帯等)に食事を提供する事業所"
-      ],
-      "requirements": [
-        "食事の調理・提供体制の整備",
-        "栄養面の配慮",
-        "対象者の所得区分の確認"
-      ],
-      "keywords": [
-        "食事提供",
-        "食事",
-        "給食",
-        "食事加算",
-        "低所得"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "seikatsu_kaigo-福祉専門職員配置等加算",
-      "name": "福祉専門職員配置等加算",
-      "service": "seikatsu_kaigo",
-      "service_name": "生活介護",
-      "category": "加算",
-      "summary": "社会福祉士等の有資格者を一定割合配置することを評価",
-      "units": "要確認",
-      "units_note": "区分(I/II/III)により単位数が異なる",
-      "target": [
-        "有資格者を配置する事業所"
-      ],
-      "requirements": [
-        "I型: 有資格者が常勤生活支援員の35%以上",
-        "II型: 同25%以上",
-        "III型: 常勤生活支援員75%以上または勤続3年以上30%以上"
-      ],
-      "keywords": [
-        "福祉専門職",
-        "社会福祉士",
-        "介護福祉士",
-        "精神保健福祉士",
-        "公認心理師",
-        "有資格者",
-        "専門職配置"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "seikatsu_kaigo-リハビリテーション加算",
       "name": "リハビリテーション加算",
       "service": "seikatsu_kaigo",
@@ -1659,36 +1533,6 @@
       "notes": ""
     },
     {
-      "id": "seikatsu_kaigo-欠席時対応加算",
-      "name": "欠席時対応加算",
-      "service": "seikatsu_kaigo",
-      "service_name": "生活介護",
-      "category": "加算",
-      "summary": "急な欠席時の相談援助を評価する加算",
-      "units": "要確認",
-      "units_note": "1回あたりの単位数。月の算定回数上限あり",
-      "target": [
-        "急な欠席があった利用者"
-      ],
-      "requirements": [
-        "欠席連絡受領時の相談援助",
-        "相談援助内容の記録",
-        "月の算定回数上限を遵守"
-      ],
-      "keywords": [
-        "欠席時対応",
-        "欠席",
-        "相談援助",
-        "急な欠席",
-        "電話相談"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "seikatsu_kaigo-地域連携加算",
       "name": "地域連携加算",
       "service": "seikatsu_kaigo",
@@ -1803,37 +1647,6 @@
         "指針",
         "研修",
         "未実施"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "seikatsu_kaigo-身体拘束廃止未実施減算",
-      "name": "身体拘束廃止未実施減算",
-      "service": "seikatsu_kaigo",
-      "service_name": "生活介護",
-      "category": "減算",
-      "summary": "身体拘束適正化が不十分な場合の減算",
-      "units": "要確認",
-      "units_note": "所定単位数の10%を減算",
-      "target": [
-        "身体拘束適正化が未実施の事業所"
-      ],
-      "requirements": [
-        "身体拘束適正化検討委員会の開催",
-        "適正化指針の整備",
-        "適正化研修の実施",
-        "やむを得ない拘束時の記録"
-      ],
-      "keywords": [
-        "身体拘束",
-        "拘束",
-        "適正化",
-        "減算",
-        "委員会"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
@@ -2105,35 +1918,6 @@
       "notes": ""
     },
     {
-      "id": "jihatsu_houday-欠席時対応加算",
-      "name": "欠席時対応加算",
-      "service": "jihatsu_houday",
-      "service_name": "児童発達支援・放課後等デイサービス",
-      "category": "加算",
-      "summary": "急な欠席時の相談援助を評価する加算",
-      "units": "要確認",
-      "units_note": "1回あたりの単位数。月の算定回数上限あり",
-      "target": [
-        "急な欠席があった児童"
-      ],
-      "requirements": [
-        "欠席連絡時の相談援助",
-        "相談援助内容の記録",
-        "月の算定回数上限を遵守"
-      ],
-      "keywords": [
-        "欠席時対応",
-        "欠席",
-        "相談援助",
-        "急な欠席"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.cfa.go.jp/policies/shougaijishien/houshu-kaitei/",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "jihatsu_houday-家庭連携加算",
       "name": "家庭連携加算",
       "service": "jihatsu_houday",
@@ -2354,36 +2138,6 @@
       "notes": ""
     },
     {
-      "id": "jihatsu_houday-自己評価結果等未公表減算",
-      "name": "自己評価結果等未公表減算",
-      "service": "jihatsu_houday",
-      "service_name": "児童発達支援・放課後等デイサービス",
-      "category": "減算",
-      "summary": "自己評価・保護者評価の結果を未公表の場合の減算",
-      "units": "要確認",
-      "units_note": "所定単位数の数%を減算",
-      "target": [
-        "自己評価・保護者評価の公表が未実施の事業所"
-      ],
-      "requirements": [
-        "自己評価の実施(年1回以上)",
-        "保護者評価の聴取",
-        "評価結果の公表(ホームページ等)"
-      ],
-      "keywords": [
-        "自己評価",
-        "保護者評価",
-        "未公表",
-        "減算",
-        "公表"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.cfa.go.jp/policies/shougaijishien/houshu-kaitei/",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": "★児発放デイで特に重要。"
-    },
-    {
       "id": "jihatsu_houday-食事提供加算",
       "name": "食事提供加算",
       "service": "jihatsu_houday",
@@ -2405,36 +2159,6 @@
         "食事",
         "おやつ",
         "給食"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.cfa.go.jp/policies/shougaijishien/houshu-kaitei/",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "jihatsu_houday-福祉専門職員配置等加算",
-      "name": "福祉専門職員配置等加算",
-      "service": "jihatsu_houday",
-      "service_name": "児童発達支援・放課後等デイサービス",
-      "category": "加算",
-      "summary": "有資格者を一定割合配置することを評価",
-      "units": "要確認",
-      "units_note": "区分(I/II/III)により単位数が異なる",
-      "target": [
-        "社会福祉士・保育士・児童指導員(任用資格)等を配置する事業所"
-      ],
-      "requirements": [
-        "I型: 有資格者比率35%以上",
-        "II型: 同25%以上",
-        "III型: 常勤比率または勤続年数の要件"
-      ],
-      "keywords": [
-        "福祉専門職",
-        "社会福祉士",
-        "保育士",
-        "児童指導員",
-        "有資格者"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.cfa.go.jp/policies/shougaijishien/houshu-kaitei/",
@@ -2493,35 +2217,6 @@
         "延長支援",
         "長時間",
         "営業時間延長"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.cfa.go.jp/policies/shougaijishien/houshu-kaitei/",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "jihatsu_houday-身体拘束廃止未実施減算",
-      "name": "身体拘束廃止未実施減算",
-      "service": "jihatsu_houday",
-      "service_name": "児童発達支援・放課後等デイサービス",
-      "category": "減算",
-      "summary": "身体拘束適正化の取り組み未実施の場合の減算",
-      "units": "要確認",
-      "units_note": "所定単位数の数%を減算",
-      "target": [
-        "身体拘束適正化が未実施の事業所"
-      ],
-      "requirements": [
-        "身体拘束適正化検討委員会の開催",
-        "適正化指針の整備",
-        "適正化研修の実施"
-      ],
-      "keywords": [
-        "身体拘束",
-        "拘束",
-        "適正化",
-        "減算"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.cfa.go.jp/policies/shougaijishien/houshu-kaitei/",
@@ -2689,36 +2384,6 @@
       "notes": "「就労移行者支援体制加算」とも表記される加算。"
     },
     {
-      "id": "shurou_keizoku_b-食事提供体制加算",
-      "name": "食事提供体制加算",
-      "service": "shurou_keizoku_b",
-      "service_name": "就労継続支援B型",
-      "category": "加算",
-      "summary": "低所得者向け食事提供体制を評価",
-      "units": "要確認",
-      "units_note": "1日あたりの単位数",
-      "target": [
-        "低所得者(市町村民税非課税世帯等)に食事提供"
-      ],
-      "requirements": [
-        "食事の調理・提供体制の整備",
-        "栄養面の配慮",
-        "対象者の所得区分の確認"
-      ],
-      "keywords": [
-        "食事提供",
-        "食事",
-        "給食",
-        "食事加算",
-        "低所得"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "shurou_keizoku_b-重度者支援体制加算",
       "name": "重度者支援体制加算",
       "service": "shurou_keizoku_b",
@@ -2812,36 +2477,6 @@
       "notes": ""
     },
     {
-      "id": "shurou_keizoku_b-福祉専門職員配置等加算",
-      "name": "福祉専門職員配置等加算",
-      "service": "shurou_keizoku_b",
-      "service_name": "就労継続支援B型",
-      "category": "加算",
-      "summary": "有資格者を一定割合配置することを評価",
-      "units": "要確認",
-      "units_note": "区分(I/II/III)により単位数が異なる",
-      "target": [
-        "社会福祉士・介護福祉士・精神保健福祉士等を配置する事業所"
-      ],
-      "requirements": [
-        "I型: 有資格者比率35%以上",
-        "II型: 同25%以上",
-        "III型: 常勤比率または勤続要件"
-      ],
-      "keywords": [
-        "福祉専門職",
-        "社会福祉士",
-        "介護福祉士",
-        "精神保健福祉士",
-        "有資格者"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "shurou_keizoku_b-送迎加算",
       "name": "送迎加算",
       "service": "shurou_keizoku_b",
@@ -2870,33 +2505,6 @@
       "notes": ""
     },
     {
-      "id": "shurou_keizoku_b-欠席時対応加算",
-      "name": "欠席時対応加算",
-      "service": "shurou_keizoku_b",
-      "service_name": "就労継続支援B型",
-      "category": "加算",
-      "summary": "急な欠席時の相談援助を評価",
-      "units": "要確認",
-      "units_note": "1回あたりの単位数。月の算定回数上限あり",
-      "target": [
-        "急な欠席があった利用者"
-      ],
-      "requirements": [
-        "欠席連絡時の相談援助",
-        "相談援助内容の記録"
-      ],
-      "keywords": [
-        "欠席時対応",
-        "欠席",
-        "相談援助"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "shurou_keizoku_b-初期加算",
       "name": "初期加算",
       "service": "shurou_keizoku_b",
@@ -2917,34 +2525,6 @@
         "初期加算",
         "新規",
         "アセスメント"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "shurou_keizoku_b-利用者負担上限額管理加算",
-      "name": "利用者負担上限額管理加算",
-      "service": "shurou_keizoku_b",
-      "service_name": "就労継続支援B型",
-      "category": "加算",
-      "summary": "上限額管理事業所としての事務を評価",
-      "units": "要確認",
-      "units_note": "月1回の算定",
-      "target": [
-        "複数事業所利用者の上限管理事業所"
-      ],
-      "requirements": [
-        "上限額管理事務の実施",
-        "他事業所への通知",
-        "市町村への報告"
-      ],
-      "keywords": [
-        "上限額管理",
-        "利用者負担",
-        "上限管理"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
@@ -3090,35 +2670,6 @@
         "減算",
         "虐待",
         "委員会"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "shurou_keizoku_b-身体拘束廃止未実施減算",
-      "name": "身体拘束廃止未実施減算",
-      "service": "shurou_keizoku_b",
-      "service_name": "就労継続支援B型",
-      "category": "減算",
-      "summary": "身体拘束適正化未実施の場合の減算",
-      "units": "要確認",
-      "units_note": "所定単位数の数%を減算",
-      "target": [
-        "適正化未実施の事業所"
-      ],
-      "requirements": [
-        "検討委員会の開催",
-        "指針の整備",
-        "研修の実施"
-      ],
-      "keywords": [
-        "身体拘束",
-        "拘束",
-        "適正化",
-        "減算"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
