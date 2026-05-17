@@ -172,6 +172,151 @@
       "notes": ""
     },
     {
+      "id": "kyotsu-延長支援加算",
+      "name": "延長支援加算",
+      "service": [
+        "seikatsu_kaigo",
+        "jihatsu_houday",
+        "shurou_keizoku_b"
+      ],
+      "service_name": "生活介護",
+      "category": "加算",
+      "summary": "通常の営業時間を超えて支援を実施する場合の加算",
+      "units": "要確認",
+      "units_note": "延長時間に応じた単位数",
+      "target": [
+        "営業時間外に支援が必要な利用者",
+        "通常時間を超えて事業所利用する利用者"
+      ],
+      "requirements": [
+        "延長時間の支援実施",
+        "延長支援の必要性の記録",
+        "延長時間中の職員配置"
+      ],
+      "keywords": [
+        "延長",
+        "延長支援",
+        "延長加算",
+        "営業時間外",
+        "時間外"
+      ],
+      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
+      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
+      "last_updated": "2026-05-16",
+      "verification_status": "要精査",
+      "notes": ""
+    },
+    {
+      "id": "kyotsu-初期加算",
+      "name": "初期加算",
+      "service": [
+        "seikatsu_kaigo",
+        "shurou_keizoku_b"
+      ],
+      "service_name": "生活介護",
+      "category": "加算",
+      "summary": "利用開始から一定期間の支援を評価する加算",
+      "units": "要確認",
+      "units_note": "1日あたりの単位数。利用開始から30日以内等",
+      "target": [
+        "新規利用者(利用開始日から一定期間内)"
+      ],
+      "requirements": [
+        "利用開始時のアセスメント",
+        "個別支援計画の作成",
+        "利用開始時の手厚い支援"
+      ],
+      "keywords": [
+        "初期",
+        "初期加算",
+        "利用開始",
+        "新規",
+        "アセスメント"
+      ],
+      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
+      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
+      "last_updated": "2026-05-16",
+      "verification_status": "要精査",
+      "notes": ""
+    },
+    {
+      "id": "kyotsu-栄養マネジメント加算",
+      "name": "栄養マネジメント加算",
+      "service": [
+        "shisetsu_nyusho",
+        "seikatsu_kaigo"
+      ],
+      "service_name": "障害者支援施設(入所)",
+      "category": "加算",
+      "summary": "管理栄養士による栄養ケア・マネジメントを実施することを評価",
+      "units": "要確認",
+      "units_note": "1日あたりの単位数",
+      "target": [
+        "栄養状態の管理が必要な利用者",
+        "管理栄養士を配置する事業所"
+      ],
+      "requirements": [
+        "管理栄養士の配置",
+        "栄養スクリーニング・アセスメントの実施",
+        "栄養ケア計画の作成",
+        "定期的なモニタリングと見直し",
+        "他職種との連携"
+      ],
+      "keywords": [
+        "栄養",
+        "栄養マネジメント",
+        "管理栄養士",
+        "栄養ケア",
+        "栄養アセスメント",
+        "低栄養",
+        "栄養スクリーニング"
+      ],
+      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
+      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
+      "last_updated": "2026-05-16",
+      "verification_status": "要精査",
+      "notes": ""
+    },
+    {
+      "id": "kyotsu-リハビリテーション加算",
+      "name": "リハビリテーション加算",
+      "service": [
+        "shisetsu_nyusho",
+        "seikatsu_kaigo"
+      ],
+      "service_name": "障害者支援施設(入所)",
+      "category": "加算",
+      "summary": "理学療法士等によるリハビリテーションを実施することを評価",
+      "units": "要確認",
+      "units_note": "1日または1回あたりの単位数",
+      "target": [
+        "リハビリが必要な利用者",
+        "理学療法士・作業療法士・言語聴覚士を配置する事業所"
+      ],
+      "requirements": [
+        "理学療法士等の配置(常勤または非常勤)",
+        "リハビリテーション計画の作成",
+        "リハビリの実施記録",
+        "定期的な計画見直し"
+      ],
+      "keywords": [
+        "リハビリ",
+        "リハビリテーション",
+        "PT",
+        "OT",
+        "ST",
+        "理学療法",
+        "作業療法",
+        "言語聴覚",
+        "機能訓練"
+      ],
+      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
+      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
+      "last_updated": "2026-05-16",
+      "verification_status": "要精査",
+      "notes": ""
+    },
+    {
       "id": "kyotsu-情報公表未報告減算",
       "name": "情報公表未報告減算",
       "service": [
@@ -759,41 +904,6 @@
       "notes": ""
     },
     {
-      "id": "shisetsu_nyusho-栄養マネジメント加算",
-      "name": "栄養マネジメント加算",
-      "service": "shisetsu_nyusho",
-      "service_name": "障害者支援施設(入所)",
-      "category": "加算",
-      "summary": "管理栄養士による栄養ケア・マネジメントを実施することを評価",
-      "units": "要確認",
-      "units_note": "1日あたりの単位数",
-      "target": [
-        "栄養状態の管理が必要な利用者",
-        "管理栄養士を配置する事業所"
-      ],
-      "requirements": [
-        "管理栄養士の配置",
-        "栄養スクリーニング・アセスメントの実施",
-        "栄養ケア計画の作成",
-        "定期的なモニタリングと見直し",
-        "他職種との連携"
-      ],
-      "keywords": [
-        "栄養",
-        "栄養マネジメント",
-        "管理栄養士",
-        "栄養ケア",
-        "栄養アセスメント",
-        "低栄養",
-        "栄養スクリーニング"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "shisetsu_nyusho-栄養士配置加算",
       "name": "栄養士配置加算",
       "service": "shisetsu_nyusho",
@@ -886,42 +996,6 @@
         "連携",
         "医ケア",
         "訪問看護"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "shisetsu_nyusho-リハビリテーション加算",
-      "name": "リハビリテーション加算",
-      "service": "shisetsu_nyusho",
-      "service_name": "障害者支援施設(入所)",
-      "category": "加算",
-      "summary": "理学療法士等によるリハビリテーションを実施することを評価",
-      "units": "要確認",
-      "units_note": "1日または1回あたりの単位数",
-      "target": [
-        "リハビリが必要な利用者",
-        "理学療法士・作業療法士・言語聴覚士を配置する事業所"
-      ],
-      "requirements": [
-        "理学療法士等の配置(常勤または非常勤)",
-        "リハビリテーション計画の作成",
-        "リハビリの実施記録",
-        "定期的な計画見直し"
-      ],
-      "keywords": [
-        "リハビリ",
-        "リハビリテーション",
-        "PT",
-        "OT",
-        "ST",
-        "理学療法",
-        "作業療法",
-        "言語聴覚",
-        "機能訓練"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
@@ -1315,37 +1389,6 @@
       "notes": ""
     },
     {
-      "id": "seikatsu_kaigo-延長支援加算",
-      "name": "延長支援加算",
-      "service": "seikatsu_kaigo",
-      "service_name": "生活介護",
-      "category": "加算",
-      "summary": "通常の営業時間を超えて支援を実施する場合の加算",
-      "units": "要確認",
-      "units_note": "延長時間に応じた単位数",
-      "target": [
-        "営業時間外に支援が必要な利用者",
-        "通常時間を超えて事業所利用する利用者"
-      ],
-      "requirements": [
-        "延長時間の支援実施",
-        "延長支援の必要性の記録",
-        "延長時間中の職員配置"
-      ],
-      "keywords": [
-        "延長",
-        "延長支援",
-        "延長加算",
-        "営業時間外",
-        "時間外"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "seikatsu_kaigo-入浴支援加算",
       "name": "入浴支援加算",
       "service": "seikatsu_kaigo",
@@ -1369,41 +1412,6 @@
         "入浴介助",
         "風呂",
         "入浴加算"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "seikatsu_kaigo-リハビリテーション加算",
-      "name": "リハビリテーション加算",
-      "service": "seikatsu_kaigo",
-      "service_name": "生活介護",
-      "category": "加算",
-      "summary": "理学療法士等によるリハビリテーション実施を評価",
-      "units": "要確認",
-      "units_note": "1日または1回あたりの単位数",
-      "target": [
-        "リハビリが必要な利用者",
-        "PT・OT・STを配置する事業所"
-      ],
-      "requirements": [
-        "理学療法士・作業療法士・言語聴覚士のいずれかを配置",
-        "リハビリテーション計画の作成",
-        "リハビリ実施記録"
-      ],
-      "keywords": [
-        "リハビリ",
-        "リハビリテーション",
-        "PT",
-        "OT",
-        "ST",
-        "理学療法",
-        "作業療法",
-        "言語聴覚",
-        "機能訓練"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
@@ -1508,36 +1516,6 @@
       "notes": ""
     },
     {
-      "id": "seikatsu_kaigo-初期加算",
-      "name": "初期加算",
-      "service": "seikatsu_kaigo",
-      "service_name": "生活介護",
-      "category": "加算",
-      "summary": "利用開始から一定期間の支援を評価する加算",
-      "units": "要確認",
-      "units_note": "1日あたりの単位数。利用開始から30日以内等",
-      "target": [
-        "新規利用者(利用開始日から一定期間内)"
-      ],
-      "requirements": [
-        "利用開始時のアセスメント",
-        "個別支援計画の作成",
-        "利用開始時の手厚い支援"
-      ],
-      "keywords": [
-        "初期",
-        "初期加算",
-        "利用開始",
-        "新規",
-        "アセスメント"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "seikatsu_kaigo-地域連携加算",
       "name": "地域連携加算",
       "service": "seikatsu_kaigo",
@@ -1619,38 +1597,6 @@
         "社会生活訓練",
         "生活訓練",
         "SST"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "seikatsu_kaigo-栄養マネジメント加算",
-      "name": "栄養マネジメント加算",
-      "service": "seikatsu_kaigo",
-      "service_name": "生活介護",
-      "category": "加算",
-      "summary": "管理栄養士による栄養ケア・マネジメントを評価",
-      "units": "要確認",
-      "units_note": "1日あたりの単位数",
-      "target": [
-        "栄養管理が必要な利用者",
-        "管理栄養士を配置する事業所"
-      ],
-      "requirements": [
-        "管理栄養士の配置",
-        "栄養スクリーニング・アセスメント",
-        "栄養ケア計画の作成",
-        "モニタリング"
-      ],
-      "keywords": [
-        "栄養",
-        "栄養マネジメント",
-        "管理栄養士",
-        "栄養ケア",
-        "低栄養"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
@@ -2008,35 +1954,6 @@
         "看護師",
         "医ケア児",
         "医療的ケア児"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.cfa.go.jp/policies/shougaijishien/houshu-kaitei/",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
-      "id": "jihatsu_houday-延長支援加算",
-      "name": "延長支援加算",
-      "service": "jihatsu_houday",
-      "service_name": "児童発達支援・放課後等デイサービス",
-      "category": "加算",
-      "summary": "通常の営業時間を超えての支援を評価",
-      "units": "要確認",
-      "units_note": "延長時間に応じた単位数",
-      "target": [
-        "営業時間外の支援が必要な児童"
-      ],
-      "requirements": [
-        "延長時間の支援実施",
-        "延長の必要性の記録",
-        "職員配置"
-      ],
-      "keywords": [
-        "延長",
-        "延長支援",
-        "営業時間外",
-        "延長加算"
       ],
       "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
       "source_url": "https://www.cfa.go.jp/policies/shougaijishien/houshu-kaitei/",
@@ -2448,34 +2365,6 @@
       "notes": ""
     },
     {
-      "id": "shurou_keizoku_b-初期加算",
-      "name": "初期加算",
-      "service": "shurou_keizoku_b",
-      "service_name": "就労継続支援B型",
-      "category": "加算",
-      "summary": "利用開始時の支援を評価する加算",
-      "units": "要確認",
-      "units_note": "1日あたりの単位数。利用開始から30日以内等",
-      "target": [
-        "新規利用者"
-      ],
-      "requirements": [
-        "利用開始時のアセスメント",
-        "個別支援計画の作成"
-      ],
-      "keywords": [
-        "初期",
-        "初期加算",
-        "新規",
-        "アセスメント"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
-    },
-    {
       "id": "shurou_keizoku_b-医療連携体制加算",
       "name": "医療連携体制加算",
       "service": "shurou_keizoku_b",
@@ -2534,34 +2423,6 @@
       "last_updated": "2026-05-16",
       "verification_status": "要精査",
       "notes": "★令和6年度改定で評価が拡充された加算。"
-    },
-    {
-      "id": "shurou_keizoku_b-延長支援加算",
-      "name": "延長支援加算",
-      "service": "shurou_keizoku_b",
-      "service_name": "就労継続支援B型",
-      "category": "加算",
-      "summary": "通常営業時間を超えた支援を評価",
-      "units": "要確認",
-      "units_note": "延長時間に応じた単位数",
-      "target": [
-        "営業時間外の支援が必要な利用者"
-      ],
-      "requirements": [
-        "延長時間の支援実施",
-        "職員配置",
-        "実施記録の作成"
-      ],
-      "keywords": [
-        "延長",
-        "延長支援",
-        "営業時間外"
-      ],
-      "source": "令和6年度障害福祉サービス等報酬改定 告示・留意事項通知",
-      "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000202214_00009.html",
-      "last_updated": "2026-05-16",
-      "verification_status": "要精査",
-      "notes": ""
     },
     {
       "id": "shurou_keizoku_b-地域協働加算",
