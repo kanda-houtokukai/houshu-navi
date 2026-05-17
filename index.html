@@ -593,6 +593,14 @@
     .qa-search-card__answer { color: var(--text-secondary); font-size: 14px; margin-bottom: 12px; line-height: 1.6; }
     .qa-search-card__link { color: #635BFF; font-size: 13px; text-decoration: none; font-weight: 600; }
     .qa-search-card__link:hover { text-decoration: underline; }
+    details.qa-search-card > summary { list-style: none; cursor: pointer; }
+    details.qa-search-card > summary::-webkit-details-marker { display: none; }
+    .qa-toggle-hint { float: right; font-size: 12px; font-weight: 600; color: #0369a1; margin-left: 8px; white-space: nowrap; }
+    details.qa-search-card[open] .qa-toggle-hint::before { content: "▲ 閉じる"; }
+    details.qa-search-card:not([open]) .qa-toggle-hint::before { content: "▼ 全文を見る"; }
+    .qa-search-card__full { padding-top: 14px; border-top: 1px solid #fde68a; margin-top: 12px; }
+    .qa-search-card__full-label { font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+    .qa-search-card__full-text { font-size: 14px; line-height: 1.7; color: var(--text-primary); white-space: pre-wrap; margin-bottom: 14px; }
 
     /* ════════════════════
        算定診断
@@ -1421,17 +1429,24 @@
   }
 
   function renderQaSearchCard(item) {
-    var answerShort = (item.answer || '').replace(/<[^>]+>/g, '').substring(0, 120);
-    if ((item.answer || '').length > 120) answerShort += '…';
-    return '<div class="qa-search-card">' +
-      '<div class="qa-search-card__header">' +
-        '<span class="qa-search-card__badge">Q&A</span>' +
-        '<span class="qa-search-card__vol">' + (item.vol_title || item.vol || '') + '</span>' +
+    var answerFull = (item.answer || '').replace(/<[^>]+>/g, '');
+    var answerShort = answerFull.substring(0, 120) + (answerFull.length > 120 ? '…' : '');
+    return '<details class="qa-search-card">' +
+      '<summary>' +
+        '<div class="qa-search-card__header">' +
+          '<span class="qa-search-card__badge">Q&A</span>' +
+          '<span class="qa-search-card__vol">' + (item.vol_title || item.vol || '') + '</span>' +
+          '<span class="qa-toggle-hint"></span>' +
+        '</div>' +
+        '<div class="qa-search-card__question">問' + (item.question_no || '') + '　' + (item.question || '') + '</div>' +
+        '<div class="qa-search-card__answer">（答）' + answerShort + '</div>' +
+      '</summary>' +
+      '<div class="qa-search-card__full">' +
+        '<div class="qa-search-card__full-label">答え（全文）</div>' +
+        '<div class="qa-search-card__full-text">' + answerFull + '</div>' +
+        (item.pdf_url ? '<a class="qa-search-card__link" href="' + item.pdf_url + '" target="_blank" rel="noopener">原文PDFを開く →</a>' : '') +
       '</div>' +
-      '<div class="qa-search-card__question">問' + (item.question_no || '') + '　' + (item.question || '') + '</div>' +
-      '<div class="qa-search-card__answer">（答）' + answerShort + '</div>' +
-      (item.pdf_url ? '<a class="qa-search-card__link" href="' + item.pdf_url + '" target="_blank" rel="noopener">原文PDFを開く →</a>' : '') +
-    '</div>';
+    '</details>';
   }
 
   function renderSearchResults(kasanResults, qaResults, keyword, filter) {
