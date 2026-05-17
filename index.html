@@ -1315,10 +1315,44 @@
     return '';
   }
 
+  var serviceToPage = {
+    'shisetsu_nyusho':  'kasan-shisetsu-nyusho',
+    'seikatsu_kaigo':   'kasan-seikatsu-kaigo',
+    'jihatsu_houday':   'kasan-jihatsu-houday',
+    'shurou_keizoku_b': 'kasan-shurou-keizoku-b'
+  };
+
+  function findRelatedServiceVersions(item) {
+    if (!kasanData || !item.id.startsWith('kyotsu-')) return [];
+    var baseName = item.name.replace(/[\(（]共通[\)）]/g, '').replace(/_共通$/, '').replace(/共通$/, '').trim();
+    return kasanData.kasan_list.filter(function (k) {
+      return !k.id.startsWith('kyotsu-') && k.name === baseName;
+    });
+  }
+
+  function renderRelatedVersionsSection(related) {
+    if (!related || related.length === 0) return '';
+    var linksHtml = related.map(function (k) {
+      var svcLabel = serviceLabels[k.service] || k.service;
+      return '<div style="margin-top:6px;">'
+        + '<a href="javascript:void(0)" onclick="window.showKasanInServicePage(\'' + k.id.replace(/'/g, "\\'") + '\')" '
+        + 'style="color:#2563eb;font-size:13px;font-weight:600;text-decoration:none;" '
+        + 'onmouseover="this.style.color=\'#1d4ed8\'" onmouseout="this.style.color=\'#2563eb\'">'
+        + '→ ' + svcLabel + 'での' + k.name
+        + '</a></div>';
+    }).join('');
+    return '<div style="background:#fefce8;border-left:3px solid #eab308;padding:12px 16px;margin-top:16px;border-radius:4px;">'
+      + '<div style="font-size:12px;font-weight:700;color:#854d0e;margin-bottom:4px;">📍 サービス別の詳細はこちら</div>'
+      + linksHtml
+      + '</div>';
+  }
+
   function renderKasanCard(item) {
     var targetHtml = item.target.map(function (t) { return '<li>' + t + '</li>'; }).join('');
     var reqHtml    = item.requirements.map(function (r) { return '<li>' + r + '</li>'; }).join('');
-    return '<div class="kasan-card">'
+    var related    = findRelatedServiceVersions(item);
+    var safeId     = item.id.replace(/"/g, '&quot;');
+    return '<div class="kasan-card" id="kasan-card-' + safeId + '">'
       + '<div class="kasan-card__header">'
       + '<div class="kasan-card__name">' + item.name + renderKasanServiceBadge(item) + '</div>'
       + '<span class="kasan-card__badge' + (item.category === '減算' ? ' kasan-card__badge--genzan' : '') + '">' + item.category + '</span>'
@@ -1334,6 +1368,7 @@
       + (item.requirements && item.requirements.length ? '<div><div class="kasan-card__section-label">算定要件</div><ul class="kasan-card__list">' + reqHtml + '</ul></div>' : '')
       + (item.notes ? '<p class="kasan-card__summary" style="font-size:12px;color:var(--text-tertiary)">📝 ' + item.notes + '</p>' : '')
       + (item.unit_table ? renderUnitTable(item.unit_table) : '')
+      + renderRelatedVersionsSection(related)
       + '<div class="kasan-card__footer">'
       + '<span class="kasan-card__meta">出典: ' + item.source + '　最終更新: ' + item.last_updated + '</span>'
       + (item.source_url ? '<a class="kasan-card__source-link" href="' + item.source_url + '" target="_blank" rel="noopener">原本を確認<svg viewBox="0 0 14 14" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 12,2 12,9"/><line x1="12" y1="2" x2="4" y2="10"/><polyline points="3,5 1,5 1,13 9,13 9,11"/></svg></a>' : '')
@@ -1812,6 +1847,24 @@
     showDiagnosisStep(1);
   }
   window.resetDiagnosis = resetDiagnosis;
+
+  window.showKasanInServicePage = function (kasanId) {
+    var svcKey = null;
+    var prefixes = ['shisetsu_nyusho', 'seikatsu_kaigo', 'jihatsu_houday', 'shurou_keizoku_b'];
+    for (var i = 0; i < prefixes.length; i++) {
+      if (kasanId.startsWith(prefixes[i] + '-')) { svcKey = prefixes[i]; break; }
+    }
+    if (!svcKey || !serviceToPage[svcKey]) return;
+    showPage(serviceToPage[svcKey]);
+    setTimeout(function () {
+      var el = document.getElementById('kasan-card-' + kasanId);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.style.transition = 'box-shadow 0.3s';
+      el.style.boxShadow = '0 0 0 3px #eab308';
+      setTimeout(function () { el.style.boxShadow = ''; }, 1800);
+    }, 120);
+  };
 
   navItems.forEach(function (item) {
     item.addEventListener('click', function () {
