@@ -1251,14 +1251,23 @@
       return '<th style="border:1px solid #cbd5e1;padding:6px 10px;text-align:center;white-space:pre-line;font-size:12px;">' + h + '</th>';
     }).join('');
     var rowsHtml = ut.rows.map(function (row) {
-      var isHL = row[0] === ut.highlight_row;
+      var isHL = ut.highlight_row && row[0] === ut.highlight_row;
       var bg   = isHL ? '#fef3c7' : 'transparent';
       var fw   = isHL ? '700' : 'normal';
       var cells = row.map(function (cell, i) {
-        return '<td style="border:1px solid #cbd5e1;padding:6px 10px;text-align:' + (i === 0 ? 'left' : 'center') + ';font-weight:' + fw + ';font-size:13px;">' + cell + '</td>';
+        var cellHtml = cell.replace(/\n/g, '<br>');
+        return '<td style="border:1px solid #cbd5e1;padding:6px 10px;text-align:' + (i === 0 ? 'left' : 'center') + ';font-weight:' + fw + ';font-size:13px;">' + cellHtml + '</td>';
       }).join('');
       return '<tr style="background:' + bg + ';">' + cells + '</tr>';
     }).join('');
+    var notesHtml = (ut.notes && ut.notes.length)
+      ? '<ul style="font-size:12px;color:var(--text-secondary);margin-top:10px;padding-left:16px;">'
+        + ut.notes.map(function (n) { return '<li style="margin-bottom:4px;">💡 ' + n + '</li>'; }).join('')
+        + '</ul>'
+      : '';
+    var footerHtml = (ut.footer || ut.note)
+      ? '<p style="font-size:11px;color:var(--text-tertiary);margin-top:8px;">' + (ut.footer || ut.note) + '</p>'
+      : '';
     return '<details style="margin-top:14px;border-top:1px solid var(--border-subtle);padding-top:12px;">'
       + '<summary style="cursor:pointer;font-weight:700;color:#0369a1;font-size:14px;padding:4px 0;list-style:none;display:flex;align-items:center;gap:6px;">'
       + '<span style="font-size:16px;">📊</span> ' + ut.title
@@ -1271,7 +1280,8 @@
       + '<thead><tr style="background:#f1f5f9;">' + headerHtml + '</tr></thead>'
       + '<tbody>' + rowsHtml + '</tbody>'
       + '</table></div>'
-      + (ut.note ? '<p style="font-size:11px;color:var(--text-tertiary);margin-top:8px;">' + ut.note + '</p>' : '')
+      + notesHtml
+      + footerHtml
       + '</div></details>';
   }
 
