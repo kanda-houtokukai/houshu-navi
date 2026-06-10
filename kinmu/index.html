@@ -21,7 +21,7 @@
   body{background:var(--paper);color:var(--ink);
     font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",sans-serif;
     font-feature-settings:"palt";-webkit-font-smoothing:antialiased;font-size:14px;}
-  .wrap{max-width:1320px;margin:0 auto;padding:16px 16px 60px;}
+  .wrap{max-width:1600px;margin:0 auto;padding:16px 16px 60px;}
   header.app{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
   header.app h1{font-size:18px;font-weight:700;margin:0;}
   header.app .sub{font-size:11.5px;color:var(--muted);}
@@ -154,10 +154,20 @@
   /* 行事行（グリッド最下段・全日に枠） */
   tr.evgrow td{height:116px;vertical-align:top;background:#FFFEF8;padding:2px 1px;}
   tr.evgrow .c-name{vertical-align:middle;background:var(--panel);font-size:11px;color:var(--muted);}
-  tr.evgrow .awmk{display:block;font-size:7.5px;color:#C0392B;font-weight:700;line-height:1.1;}
+  tr.evgrow .awmk{display:none;}
   tr.evgrow .vts{display:flex;flex-direction:row-reverse;justify-content:center;gap:1px;}
   tr.evgrow .vt{writing-mode:vertical-rl;text-orientation:upright;font-size:9.5px;letter-spacing:.5px;max-height:104px;line-height:1.05;color:#5a4310;}
   tr.evgrow .vt.small{font-size:7.5px;letter-spacing:0;}
+  /* 表示サイズ切替（画面のみ。印刷・プレビューには影響しない） */
+  body.z-s table.grid{font-size:11px;}
+  body.z-s .grid th,body.z-s .grid td{height:24px;}
+  body.z-s td.day,body.z-s .grid thead th{min-width:25px;max-width:25px;}
+  body.z-s .c-name{min-width:104px;max-width:104px;}
+  body.z-l table.grid{font-size:14.5px;}
+  body.z-l .grid th,body.z-l .grid td{height:38px;}
+  body.z-l td.day,body.z-l .grid thead th{min-width:40px;max-width:40px;}
+  body.z-l .c-name{min-width:150px;max-width:150px;}
+  body.z-l .hb{font-size:9px;}
   /* 双方向ハイライト: 役割パネル側 */
   .hlsel{outline:2px solid var(--accent);background:#E4F0EA;border-radius:6px;}
   .roleweek.rw-hl{background:#F2F7F4;}
@@ -279,7 +289,7 @@
 <header class="app">
   <div>
     <h1 id="sheet-title">勤務表作成ツール</h1>
-    <div class="sub">自動で下書きを作り、人が微調整して確定する。データはこの端末内に保存されます。<b id="appver" style="margin-left:8px;color:#2F6F5B;">v13</b></div>
+    <div class="sub">自動で下書きを作り、人が微調整して確定する。データはこの端末内に保存されます。<b id="appver" style="margin-left:8px;color:#2F6F5B;">v15</b></div>
   </div>
 </header>
 
@@ -300,6 +310,10 @@
     <button class="btn sec" id="btnPrint">印刷</button>
     <button class="btn sec" id="btnPv">印刷プレビュー</button>
     <button class="btn sec" id="btnCsv">CSV書き出し</button>
+    <label style="font-size:12.5px;display:flex;align-items:center;gap:4px;">表示
+      <select id="uiZoom" style="font-family:inherit;font-size:12.5px;padding:5px 7px;border:1px solid var(--line-strong);border-radius:6px;background:#fff;">
+        <option value="s">小</option><option value="m" selected>標準</option><option value="l">大</option>
+      </select></label>
     <span class="hint">セルをタップすると記号・休み・役割を直接編集できます（下線付きセル＝手直し済み）。</span>
   </div>
 
@@ -645,11 +659,23 @@ function generateCore(state,y,m,carry){
     const okFor=b=>{const dr=drvOfBus(b);return acPool.filter(s=>s.tenjoOK&&!(dr&&(s.ngDrivers||[]).includes(dr.id)));};
     // 添乗・日中一時: 手動 > 引き継ぎ > ローテ
     let t1=saved.t1?byId[saved.t1]:(carried&&byId[carried.t1])||pickRotate(okFor(1),1,lastT)[0];
-    let t2=saved.t2?byId[saved.t2]:(carried&&byId[carried.t2])||pickRotate(okFor(2),1,lastT,[t1&&t1.id])[0];
+    let t2=saved.t2?byId[saved.t2]:(carried&&byId[carried.t2])||(
+      pickRotate(okFor(2).filter(s=>!t1||s.group!==t1.group),1,lastT,[t1&&t1.id])[0]   // 添乗2名は別クラス優先
+      ||pickRotate(okFor(2),1,lastT,[t1&&t1.id])[0]);
     const nPool=acPool.filter(s=>s.nicchuOK);
-    let nic=saved.n?saved.n.map(id=>byId[id]).filter(Boolean)
-      :(carried?carried.n.map(id=>byId[id]).filter(Boolean)
-        :pickRotate(nPool,settings.nicchuCount,lastN,[t1&&t1.id,t2&&t2.id]));
+    let nic;
+    if(saved.n)nic=saved.n.map(id=>byId[id]).filter(Boolean);
+    else if(carried)nic=carried.n.map(id=>byId[id]).filter(Boolean);
+    else{
+      nic=[];   // 日中一時も別クラスから順に選ぶ（足りない場合のみ同クラス許容）
+      for(let ni=0;ni<settings.nicchuCount;ni++){
+        const usedG=new Set(nic.map(s=>s.group));
+        const ex=[t1&&t1.id,t2&&t2.id].concat(nic.map(s=>s.id));
+        const pick=pickRotate(nPool.filter(s=>!usedG.has(s.group)),1,lastN,ex)[0]
+          ||pickRotate(nPool,1,lastN,ex)[0];
+        if(pick)nic.push(pick);
+      }
+    }
     if(t1)lastT[t1.id]=gw; if(t2)lastT[t2.id]=gw; nic.forEach(s=>lastN[s.id]=gw);
     roles[wk]={t1:t1&&t1.id,t2:t2&&t2.id,n:nic.map(s=>s.id),bus,carried:!!carried};
     // 適用（週内固定。休みの日はその日だけ代役）
@@ -660,22 +686,33 @@ function generateCore(state,y,m,carry){
         const cell=grid[dr.id][day.d];
         if(!LEAVE_CODES.includes(cell.code)){cell.code=(bus[dr.id]===1?"①":"②");cell.labels["bus"+bus[dr.id]]=true;}
       });
-      if(!awHol)[[t1,1],[t2,2]].forEach(([t,b])=>{
-        let person=t;
-        if(person&&offDay(person.id,day.d)){
-          person=okFor(b).filter(s=>!offDay(s.id,day.d))
-            .filter(s=>s!==t1&&s!==t2&&!nic.includes(s))
-            .sort((a,c)=>(lastT[a.id]??-9999)-(lastT[c.id]??-9999))[0]
-            ||okFor(b).find(s=>!offDay(s.id,day.d));
-        }
-        if(person){const cell=grid[person.id][day.d];cell.code="A";cell.labels["bus"+b]=true;counts[person.id]["b"+b]++;}
-      });
+      if(!awHol){
+        const assigned={};
+        [[t1,1],[t2,2]].forEach(([t,b])=>{
+          let person=t;
+          if(person&&offDay(person.id,day.d)){
+            const other=assigned[b===1?2:1]||(b===1?t2:t1);
+            const cands=okFor(b).filter(s=>!offDay(s.id,day.d))
+              .filter(s=>s!==t1&&s!==t2&&!nic.includes(s));
+            const pref=cands.filter(s=>!other||s.group!==other.group);   // 別クラス優先
+            person=(pref.length?pref:cands)
+              .sort((a,c)=>(lastT[a.id]??-9999)-(lastT[c.id]??-9999))[0]
+              ||okFor(b).find(s=>!offDay(s.id,day.d));
+          }
+          if(person){assigned[b]=person;const cell=grid[person.id][day.d];cell.code="A";cell.labels["bus"+b]=true;counts[person.id]["b"+b]++;}
+        });
+      }
       let todays=nic.filter(s=>!offDay(s.id,day.d));
       let need=settings.nicchuCount-todays.length;
       if(need>0){
         const subs=nPool.filter(s=>!nic.includes(s)&&s!==t1&&s!==t2
           &&!offDay(s.id,day.d)&&!grid[s.id][day.d].labels.bus1&&!grid[s.id][day.d].labels.bus2);
-        todays=todays.concat(subs.slice(0,need));
+        for(let ni=0;ni<need;ni++){
+          const usedG=new Set(todays.map(s=>s.group));
+          const rest=subs.filter(s=>!todays.includes(s));
+          const pick=rest.find(s=>!usedG.has(s.group))||rest[0];
+          if(pick)todays.push(pick);
+        }
       }
       todays.forEach(s=>{const cell=grid[s.id][day.d];cell.code="C";cell.labels.nicchu=true;counts[s.id].n++;});
     });
@@ -1489,7 +1526,14 @@ function armButton(btn,armedLabel,fn){
 }
 function dl(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),5000);}
-function renderAll(){renderSheet();renderMonthly();renderStaff();renderStats();renderSettings();}
+function applyZoom(){
+  const z=state.settings.uiZoom||"m";
+  document.body.classList.toggle("z-s",z==="s");
+  document.body.classList.toggle("z-l",z==="l");
+  if($("uiZoom"))$("uiZoom").value=z;
+}
+$("uiZoom").addEventListener("change",e=>{state.settings.uiZoom=e.target.value;save();applyZoom();});
+function renderAll(){applyZoom();renderSheet();renderMonthly();renderStaff();renderStats();renderSettings();}
 renderAll();
 </script>
 </div>
