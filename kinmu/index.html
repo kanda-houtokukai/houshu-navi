@@ -289,7 +289,7 @@
 <header class="app">
   <div>
     <h1 id="sheet-title">勤務表作成ツール</h1>
-    <div class="sub">自動で下書きを作り、人が微調整して確定する。データはこの端末内に保存されます。<b id="appver" style="margin-left:8px;color:#2F6F5B;">v15</b></div>
+    <div class="sub">自動で下書きを作り、人が微調整して確定する。データはこの端末内に保存されます。<b id="appver" style="margin-left:8px;color:#2F6F5B;">v16</b></div>
   </div>
 </header>
 
@@ -305,7 +305,7 @@
 <div class="view on" id="view-sheet">
   <div class="bar no-print">
     <div class="month"><button id="mPrev">‹</button><span id="mLabel"></span><button id="mNext">›</button></div>
-    <button class="btn" id="btnGen">自動作成</button>
+    <button class="btn" id="btnGen">勤務表を作成する</button>
     <button class="btn sec" id="btnRegen">作り直す（手直しを消去）</button>
     <button class="btn sec" id="btnPrint">印刷</button>
     <button class="btn sec" id="btnPv">印刷プレビュー</button>
@@ -322,14 +322,23 @@
     <div id="warnBody" class="ok">—</div>
   </div>
 
-  <div class="panel no-print">
-    <h2>週ごとの役割（変更するとその週に反映されます）</h2>
-    <div class="hint" style="margin-bottom:6px;">同じ人を選ぶと元の担当者と役割を自動で入れ替えます。一度でも手動変更すると、この月の全週は固定され勝手に組み変わりません（自動に戻すには「作り直す」）。</div>
-    <div id="rolesBody" class="hint">「自動作成」を押すと、ここに週ごとの 運転手の便／添乗／日中一時 が表示されます。</div>
+  <div class="panel no-print" id="rolesPanel">
+    <h2 style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0;">
+      <span>週ごとの役割（変更するとその週に反映されます）</span>
+      <button class="btn sec" id="btnRolesToggle" type="button" style="font-size:12px;padding:3px 12px;white-space:nowrap;">▸ 開く</button>
+    </h2>
+    <div id="rolesWrap" style="margin-top:8px;">
+      <div class="hint" style="margin-bottom:6px;">同じ人を選ぶと元の担当者と役割を自動で入れ替えます。一度でも手動変更すると、この月の全週は固定され勝手に組み変わりません（自動に戻すには「作り直す」）。</div>
+      <div id="rolesBody" class="hint">「勤務表を作成する」を押すと、ここに週ごとの 運転手の便／添乗／日中一時 が表示されます。</div>
+    </div>
   </div>
 
+  <div class="panel no-print" id="createBox" style="display:none;text-align:center;padding:30px 20px;">
+    <div style="font-size:14px;color:var(--muted);margin-bottom:14px;line-height:1.7;">この月の勤務表は、まだ作成されていません。<br>下のボタンを押すと、登録した条件から下書きを作成します。</div>
+    <button class="btn" id="btnCreate" style="font-size:15px;padding:10px 24px;">勤務表を作成する</button>
+  </div>
   <h2 class="print-only" id="printTitle" style="text-align:center;font-size:15px;margin:0 0 6px;"></h2>
-  <div class="tablebox"><table class="grid" id="grid"></table></div>
+  <div class="tablebox" id="tablebox"><table class="grid" id="grid"></table></div>
 
   <div class="panel sheet-foot" style="margin-top:14px;display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;">
     <div>
@@ -901,6 +910,7 @@ function migrate(s){
   });
   if(!s.settings.codeMin)s.settings.codeMin={};
   Object.values(s.months||{}).forEach(mo=>{
+    if(mo.created===undefined)mo.created=!!((mo.overrides&&Object.keys(mo.overrides).length)||(mo.roles&&Object.keys(mo.roles).length));
     Object.values(mo.overrides||{}).forEach(o=>{
       if(o.code==="AM"||o.code==="PM"){o.half=o.code;delete o.code;}
     });
@@ -950,8 +960,22 @@ function renderSheet(){
   const {y,m}=state.cur;
   $("mLabel").textContent=y+"年 "+m+"月"; $("mLabel2").textContent=y+"年 "+m+"月";
   $("printTitle").textContent=y+"年"+m+"月勤務表";
-  const res=generate(state,y,m); lastResult=res;
   const mo=month();
+  applyRolesCollapse();
+  if(!mo.created){
+    lastResult=null;
+    $("grid").innerHTML="";
+    if($("createBox"))$("createBox").style.display="";
+    if($("tablebox"))$("tablebox").style.display="none";
+    if($("warnPanel"))$("warnPanel").style.display="none";
+    if($("rolesPanel"))$("rolesPanel").style.display="none";
+    return;
+  }
+  if($("createBox"))$("createBox").style.display="none";
+  if($("tablebox"))$("tablebox").style.display="";
+  if($("warnPanel"))$("warnPanel").style.display="";
+  if($("rolesPanel"))$("rolesPanel").style.display="";
+  const res=generate(state,y,m); lastResult=res;
   if(res.warns.length){
     $("warnBody").innerHTML="<ul class='warnlist'>"+res.warns.map(w=>"<li>⚠ "+esc(w.msg)+"</li>").join("")+"</ul>";
   } else $("warnBody").innerHTML="<span class='ok'>✓ すべての条件を満たしています</span>";
@@ -1202,7 +1226,11 @@ $("grid").addEventListener("mouseover",e=>{
 });
 $("grid").addEventListener("mouseleave",clearRoleHl);
 
-$("btnGen").addEventListener("click",renderSheet);
+function createMonth(){const mo=month();mo.created=true;save();renderSheet();}
+function applyRolesCollapse(){const open=state.settings&&state.settings.rolesCollapsed===false;const w=$("rolesWrap"),b=$("btnRolesToggle");if(!w||!b)return;w.style.display=open?"":"none";b.textContent=open?"▾ 閉じる":"▸ 開く";}
+$("btnGen").addEventListener("click",createMonth);
+$("btnCreate").addEventListener("click",createMonth);
+$("btnRolesToggle").addEventListener("click",()=>{const isOpen=state.settings.rolesCollapsed===false;state.settings.rolesCollapsed=isOpen?true:false;save();applyRolesCollapse();});
 $("btnRegen").addEventListener("click",e=>{
   armButton(e.currentTarget,"もう一度押すと手直しを消去",()=>{
     const mo=month(); mo.overrides={}; mo.roles={}; save(); renderSheet(); toast("作り直しました");
